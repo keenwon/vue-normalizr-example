@@ -5,22 +5,21 @@
   </div>
 </template>
 
-<script>
-import Vue from 'vue';
-import store from '../store';
+<script lang="ts">
+  import Vue from 'vue';
+  import { Component } from 'vue-property-decorator';
 
-export default {
-  computed: {
-    count() {
+  import store from '../store';
+
+  @Component
+  export default class App extends Vue {
+    get count() {
       return store.state.count;
     }
-  },
 
-  methods: {
     onClick() {
       store.commit('increment');
     }
   }
-};
 </script>
 

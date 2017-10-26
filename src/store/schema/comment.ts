@@ -1,7 +1,7 @@
 import { normalize, denormalize, schema } from 'normalizr';
 import userSchema from './user';
 
-const commentSchema = new schema.Entity('comment', {
+const commentSchema: schema.Entity = new schema.Entity('comment', {
   author: userSchema
 });
 

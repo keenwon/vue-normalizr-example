@@ -10,7 +10,7 @@ function getPath(tsPath) {
 
 const config = {
   entry: {
-    'index': getPath('src/index.js')
+    'index': getPath('src/index.ts')
   },
   output: {
     path: getPath('dist/'),
@@ -19,11 +19,19 @@ const config = {
     chunkFilename: '[name].js'
   },
   resolve: {
-    extensions: ['.js', '.vue', '.json']
+    extensions: ['.ts', '.js', '.vue', '.json']
   },
   devtool: 'source-map',
   module: {
     loaders: [
+      {
+        test: /\.ts$/,
+        exclude: /node_modules|vue\/src/,
+        loader: 'ts-loader',
+        options: {
+          appendTsSuffixTo: [/\.vue$/] 
+        }
+      },
       {
         test: /\.vue$/,
         loader: 'vue-loader',

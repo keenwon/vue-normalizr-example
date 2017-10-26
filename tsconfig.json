@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "types": [
+        "node",
+        "webpack-env"
+      ],
+    "lib": [
+        "dom",
+        "es2015"
+    ],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "strict": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "removeComments": true,
+    "sourceMap": true
+  },
+  "include": [
+    "./src/**/*.ts",
+    "./src/**/*.vue"
+  ],
+  "compileOnSave": false
+}
