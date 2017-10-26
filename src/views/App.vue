@@ -1,7 +1,6 @@
 <template>
   <div>
-    <p>Count: {{count}}</p>
-    <button @click="onClick">+1</button>
+    <NewsList :list="newsList" />
   </div>
 </template>
 
@@ -9,17 +8,28 @@
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
 
+  import NewsList from '../components/NewsList/Index.vue';
+
   import store from '../store';
 
-  @Component
+  @Component({
+    components: {
+      NewsList
+    }
+  })
   export default class App extends Vue {
-    get count() {
-      return store.state.count;
-    }
-
-    onClick() {
-      store.commit('increment');
-    }
+    newsList = [
+      {
+        id: 201710260001,
+        title: 'news 1',
+        content: 'news content 1'
+      },
+      {
+        id: 201710260002,
+        title: 'news 2',
+        content: 'news content 2'
+      }
+    ]
   }
 </script>
 
