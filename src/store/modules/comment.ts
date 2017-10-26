@@ -27,7 +27,19 @@ const mutations: MutationTree<Array<IComment>> = {
  * Action
  */
 const actions = {
-  getList() {
-    
+  getCommentList(context: any, newsId: number) {
+    return fetch(`/api/comments/${newsId}`)
+      .then((response: Response) => {
+        return response.json();
+      })
+      .then(data => {
+        context.commit(COMMENTS_FETCH, data);
+      });
   }
 }
+
+export default {
+  state,
+  mutations,
+  actions
+};

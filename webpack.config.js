@@ -2,6 +2,7 @@
 
 const path = require('path');
 const webpack = require('webpack');
+const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 const mockData = require('./mock.data');
 
 function getPath(tsPath) {
@@ -21,6 +22,9 @@ const config = {
   resolve: {
     extensions: ['.ts', '.js', '.vue', '.json']
   },
+  plugins: [
+    new FriendlyErrorsWebpackPlugin()
+  ],
   devtool: 'source-map',
   module: {
     loaders: [
@@ -46,7 +50,7 @@ const config = {
       index: 'index.html'
     },
     before(app){
-      app.get('/api/news/list', function(req, res) {
+      app.get('/api/news', function(req, res) {
         res.json(mockData.news);
       });
 

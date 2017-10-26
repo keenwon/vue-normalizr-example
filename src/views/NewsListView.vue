@@ -16,18 +16,15 @@
     }
   })
   export default class NewsListView extends Vue {
-    newsList = [
-      {
-        id: 201710260001,
-        title: 'news 1',
-        content: 'news content 1'
-      },
-      {
-        id: 201710260002,
-        title: 'news 2',
-        content: 'news content 2'
-      }
-    ]
+    get newsList() {
+      return (<any>store.state).news || [];
+    }
+
+    created() {
+      setTimeout(() => {
+        store.dispatch('getNewsList');
+      }, 2000)
+    }
   }
 </script>
 

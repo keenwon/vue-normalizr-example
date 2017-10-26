@@ -13,6 +13,7 @@
   "devDependencies": {
     "@types/node": "^8.0.47",
     "@types/webpack-env": "^1.13.2",
+    "friendly-errors-webpack-plugin": "^1.6.1",
     "normalizr": "^3.2.4",
     "ts-loader": "^3.0.5",
     "typescript": "^2.5.3",
