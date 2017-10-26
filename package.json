@@ -1,13 +1,15 @@
 {
-  "name": "normalizr-test",
+  "name": "vue-normailzr-example",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --hot --color"
   },
-  "author": "",
-  "license": "ISC",
+  "author": {
+    "name": "keenwon",
+    "email": "semanwmj@gmail.com"
+  },
+  "license": "MIT",
   "devDependencies": {
     "@types/node": "^8.0.47",
     "@types/webpack-env": "^1.13.2",
