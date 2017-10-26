@@ -1,7 +1,7 @@
 <template>
   <div>
     <p>title: {{news.title}}</p>
-    <p>author: {{news.author.name}}<{{news.author.email}}></p>
+    <p>author: <router-link :to="'/user/' + news.author.id">{{news.author.name}}</router-link></p>
     <br />
     <p>{{news.content}}</p>
     <a href="javascript:history.go(-1)">back</a>
