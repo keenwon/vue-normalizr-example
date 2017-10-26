@@ -42,6 +42,10 @@ const config = {
     ]
   },
   devServer: {
+    hot: true,
+    historyApiFallback: {
+      index: 'index.html'
+    },
     before(app){
       app.get('/api/news/list', function(req, res) {
         res.json(mockData.news);
