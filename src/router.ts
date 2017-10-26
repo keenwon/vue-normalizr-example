@@ -1,14 +1,19 @@
 import Vue from 'vue';
 import VueRouter, { Route, RouteConfig } from 'vue-router';
 
-import AppView from './views/App.vue';
+import NewsListView from './views/NewsListView.vue';
+import NewsContentView from './views/NewsContentView.vue';
 
 Vue.use(VueRouter);
 
 const routes: RouteConfig[] = [
   {
     path: '/',
-    component: AppView
+    component: NewsListView
+  },
+  {
+    path: '/news/:newsId',
+    component: NewsContentView
   }
 ]
 

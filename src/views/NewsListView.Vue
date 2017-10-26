@@ -1,9 +1,5 @@
 <template>
-  <div>
-    <h2>Vue Normailzr Example</h2>
-    <hr />
-    <router-view></router-view>
-  </div>
+  <NewsList :list="newsList" />
 </template>
 
 <script lang="ts">
@@ -19,7 +15,7 @@
       NewsList
     }
   })
-  export default class App extends Vue {
+  export default class NewsListView extends Vue {
     newsList = [
       {
         id: 201710260001,

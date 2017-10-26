@@ -1,12 +1,9 @@
 <template>
-  <div>
-    <p>News List:</p>
-    <ul>
-      <li v-for="item in list" :key="item.id">
-        <a :href="'/news/' + item.id">{{item.title}}</a>
-      </li>
-    </ul>
-  </div>
+  <ul>
+    <li v-for="item in list" :key="item.id">
+      <router-link :to="'/news/' + item.id">{{item.title}}</router-link>
+    </li>
+  </ul>
 </template>
 
 <script lang="ts">

@@ -42,7 +42,6 @@ const config = {
     ]
   },
   devServer: {
-    hot: true,
     historyApiFallback: {
       index: 'index.html'
     },
