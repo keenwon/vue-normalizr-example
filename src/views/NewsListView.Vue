@@ -6,7 +6,7 @@
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
 
-  import NewsList from '../components/NewsList/Index.vue';
+  import NewsList from '../components/NewsList';
 
   import store from '../store';
 
