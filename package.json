@@ -1,0 +1,20 @@
+{
+  "name": "normalizr-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server --color"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "normalizr": "^3.2.4",
+    "vue": "^2.5.2",
+    "vue-loader": "^13.3.0",
+    "vue-template-compiler": "^2.5.2",
+    "vuex": "^3.0.0",
+    "webpack": "^3.8.1",
+    "webpack-dev-server": "^2.9.3"
+  }
+}
