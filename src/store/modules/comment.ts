@@ -4,22 +4,32 @@ import { IComment } from '../../types';
 /**
  * State
  */
-const state: Array<IComment> = [];
+interface ICommentState {
+  obj: {
+    [newsId: number]: Array<IComment>
+  } | {}
+};
 
+const state: ICommentState = {
+  obj: {}
+};
 
 /**
  * Mutations
  */
 const COMMENTS_FETCH = 'COMMENTS_FETCH';
-const mutations: MutationTree<Array<IComment>> = {
+const mutations: MutationTree<ICommentState> = {
 
   /**
    * get comment list
    * @param state state
    * @param payload comment list
    */
-  [COMMENTS_FETCH](state: Array<IComment>, payload: Array<IComment>): void {
-    state = payload
+  [COMMENTS_FETCH](state: ICommentState, payload: any): void {
+    state.obj = {
+      ...state.obj,
+      [payload.newsId]: payload.list
+    }
   }
 }
 
@@ -33,7 +43,10 @@ const actions = {
         return response.json();
       })
       .then(data => {
-        context.commit(COMMENTS_FETCH, data);
+        context.commit(COMMENTS_FETCH, {
+          newsId: +newsId,
+          list: data
+        });
       });
   }
 }

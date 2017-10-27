@@ -63,7 +63,7 @@ const config = {
       });
 
       app.get('/api/comments/:newsId', function(req, res) {
-        res.json(mockData.comments[req.params.newsId]);
+        res.json(mockData.comments[req.params.newsId] || {});
       });
     }
   }
