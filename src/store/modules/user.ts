@@ -1,4 +1,4 @@
-import { MutationTree, Mutation } from 'vuex';
+import { MutationTree, ActionTree, ActionContext, Module } from 'vuex';
 import { IUser } from '../../types';
 
 /**
@@ -36,14 +36,14 @@ const mutations: MutationTree<IUserState> = {
 /**
  * Action
  */
-const actions = {
-  getUser(context: any, userId: number) {
+const actions: ActionTree<IUserState, any> = {
+  getItem({ commit }: ActionContext<IUserState, any>, userId: number) {
     return fetch(`/api/user/${userId}`)
       .then((response: Response) => {
         return response.json();
       })
       .then(data => {
-        context.commit(USER_FETCH, {
+        commit(USER_FETCH, {
           userId: +userId,
           user: data
         });
@@ -51,8 +51,11 @@ const actions = {
   }
 }
 
-export default {
+const userModule: Module<IUserState, any> = {
+  namespaced: true,
   state,
   mutations,
   actions
 };
+
+export default userModule;

@@ -36,8 +36,8 @@ const mutations: MutationTree<ICommentState> = {
 /**
  * Action
  */
-const actions: ActionTree<ICommentState, ICommentState> = {
-  getCommentList({ commit }: ActionContext<ICommentState, ICommentState>, newsId: number) {
+const actions: ActionTree<ICommentState, any> = {
+  getList({ commit }: ActionContext<ICommentState, any>, newsId: number) {
     return fetch(`/api/comments/${newsId}`)
       .then((response: Response) => {
         return response.json();
@@ -51,7 +51,8 @@ const actions: ActionTree<ICommentState, ICommentState> = {
   }
 }
 
-const commentModule: Module<any, any> = {
+const commentModule: Module<ICommentState, any> = {
+  namespaced: true,
   state,
   mutations,
   actions

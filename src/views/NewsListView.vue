@@ -17,11 +17,11 @@
   })
   export default class NewsListView extends Vue {
     get newsList() {
-      return store.state.newsList.list;
+      return store.state.news.list;
     }
 
     created() {
-      store.dispatch('getNewsList');
+      store.dispatch('news/getList');
     }
   }
 </script>

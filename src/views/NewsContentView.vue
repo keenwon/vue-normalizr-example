@@ -28,8 +28,8 @@
     created() {
       this.newsId = +this.$route.params.newsId;
 
-      store.dispatch('getNews', this.newsId);
-      store.dispatch('getCommentList', this.newsId);
+      store.dispatch('news/getItem', this.newsId);
+      store.dispatch('comment/getList', this.newsId);
     }
   }
 </script>

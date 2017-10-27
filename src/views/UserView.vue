@@ -24,7 +24,7 @@
     created() {
       this.userId = +this.$route.params.userId;
 
-      store.dispatch('getUser', this.userId);
+      store.dispatch('user/getItem', this.userId);
     }
   }
 </script>
