@@ -1,5 +1,6 @@
 import { MutationTree, ActionTree, ActionContext, Module } from 'vuex';
 import { IComment } from '../../types';
+import fetch from '../fetch';
 
 /**
  * State
@@ -39,9 +40,6 @@ const mutations: MutationTree<ICommentState> = {
 const actions: ActionTree<ICommentState, any> = {
   getList({ commit }: ActionContext<ICommentState, any>, newsId: number) {
     return fetch(`/api/comments/${newsId}`)
-      .then((response: Response) => {
-        return response.json();
-      })
       .then(data => {
         commit(COMMENTS_FETCH, {
           newsId: +newsId,

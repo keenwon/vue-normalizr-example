@@ -1,5 +1,6 @@
 import { MutationTree, ActionTree, ActionContext, Module } from 'vuex';
 import { INews } from '../../types';
+import fetch from '../fetch';
 
 /**
  * State
@@ -46,9 +47,6 @@ const mutations: MutationTree<INewsState> = {
 const actions: ActionTree<INewsState, any> = {
   getItem(context: ActionContext<INewsState, any>, newsId: number) {
     return fetch(`/api/news/${newsId}`)
-      .then((response: Response) => {
-        return response.json();
-      })
       .then(data => {
         context.commit(NEWS_FETCH, data);
       });
@@ -56,9 +54,6 @@ const actions: ActionTree<INewsState, any> = {
 
   getList({ commit }: ActionContext<INewsState, any>) {
     return fetch('/api/news')
-      .then((response: Response) => {
-        return response.json();
-      })
       .then(data => {
         commit(NEWS_LIST_FETCH, data);
       });

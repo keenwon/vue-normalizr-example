@@ -1,5 +1,6 @@
 import { MutationTree, ActionTree, ActionContext, Module } from 'vuex';
 import { IUser } from '../../types';
+import fetch from '../fetch';
 
 /**
  * State
@@ -39,9 +40,6 @@ const mutations: MutationTree<IUserState> = {
 const actions: ActionTree<IUserState, any> = {
   getItem({ commit }: ActionContext<IUserState, any>, userId: number) {
     return fetch(`/api/user/${userId}`)
-      .then((response: Response) => {
-        return response.json();
-      })
       .then(data => {
         commit(USER_FETCH, {
           userId: +userId,
