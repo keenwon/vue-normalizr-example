@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="news">
     <p>title: {{news.title}}</p>
     <p>author: <router-link :to="'/user/' + news.author.id">{{news.author.name}}</router-link></p>
     <br />

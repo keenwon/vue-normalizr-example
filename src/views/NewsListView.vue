@@ -17,13 +17,11 @@
   })
   export default class NewsListView extends Vue {
     get newsList() {
-      return (<any>store.state).news || [];
+      return (<any>store.state).newsList.list;
     }
 
     created() {
-      setTimeout(() => {
-        store.dispatch('getNewsList');
-      }, 2000)
+      store.dispatch('getNewsList');
     }
   }
 </script>

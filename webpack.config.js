@@ -54,6 +54,14 @@ const config = {
         res.json(mockData.news);
       });
 
+      app.get('/api/news/:newsId', function(req, res) {
+        let news = mockData.news.find(item => {
+          return item.id === +req.params.newsId;
+        });
+
+        res.json(news);
+      });
+
       app.get('/api/comments/:newsId', function(req, res) {
         res.json(mockData.comments[req.params.newsId]);
       });

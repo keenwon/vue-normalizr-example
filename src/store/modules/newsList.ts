@@ -4,27 +4,28 @@ import { INews } from '../../types';
 /**
  * State
  */
-interface INewsState {
-  currentNews: INews | null
+interface INewsListState {
+  list: Array<INews>
 };
 
-const state: INewsState = {
-  currentNews: null
+const state: INewsListState = {
+  list: []
 };
+
 
 /**
  * Mutations
  */
-const NEWS_FETCH = 'NEWS_FETCH';
-const mutations: MutationTree<INewsState> = {
+const NEWSLIST_FETCH = 'NEWSLIST_FETCH';
+const mutations: MutationTree<INewsListState> = {
 
   /**
    * get news list
    * @param state state
    * @param payload news list
    */
-  [NEWS_FETCH](state: INewsState, payload: INews): void {
-    state.currentNews = payload;
+  [NEWSLIST_FETCH](state: INewsListState, payload: Array<INews>): void {
+    state.list = payload;
   }
 }
 
@@ -32,13 +33,13 @@ const mutations: MutationTree<INewsState> = {
  * Action
  */
 const actions = {
-  getNews(context: any, newsId: number) {
-    return fetch(`/api/news/${newsId}`)
+  getNewsList(context: any) {
+    return fetch('/api/news')
       .then((response: Response) => {
         return response.json();
       })
       .then(data => {
-        context.commit(NEWS_FETCH, data);
+        context.commit(NEWSLIST_FETCH, data);
       });
   }
 }

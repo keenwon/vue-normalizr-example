@@ -1,6 +1,6 @@
 <template>
   <ul>
-    <li v-for="item in newsList" :key="item.id">
+    <li v-for="item in list" :key="item.id">
       <router-link :to="'/news/' + item.id">{{item.title}}</router-link>
     </li>
   </ul>
@@ -16,9 +16,5 @@
   export default class NewsList extends Vue {
     @Prop()
     list: Array<INews>
-
-    get newsList() {
-      return this.list
-    }
   }
 </script>
