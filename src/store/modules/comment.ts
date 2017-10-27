@@ -7,7 +7,7 @@ import { IComment } from '../../types';
 interface ICommentState {
   obj: {
     [newsId: number]: Array<IComment>
-  } | {}
+  }
 };
 
 const state: ICommentState = {

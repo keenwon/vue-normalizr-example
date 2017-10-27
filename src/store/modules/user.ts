@@ -7,7 +7,7 @@ import { IUser } from '../../types';
 interface IUserState {
   obj: {
     [userId: number]: IUser
-  } | {}
+  }
 };
 
 const state: IUserState = {
