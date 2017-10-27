@@ -1,4 +1,4 @@
-import { MutationTree, Mutation } from 'vuex';
+import { MutationTree, ActionTree, ActionContext, Module } from 'vuex';
 import { INews } from '../../types';
 
 /**
@@ -32,20 +32,22 @@ const mutations: MutationTree<INewsListState> = {
 /**
  * Action
  */
-const actions = {
-  getNewsList(context: any) {
+const actions: ActionTree<INewsListState, INewsListState> = {
+  getNewsList({ commit }: ActionContext<INewsListState, INewsListState>) {
     return fetch('/api/news')
       .then((response: Response) => {
         return response.json();
       })
       .then(data => {
-        context.commit(NEWSLIST_FETCH, data);
+        commit(NEWSLIST_FETCH, data);
       });
   }
 }
 
-export default {
+const newsListModule: Module<any, any> = {
   state,
   mutations,
   actions
-};
+}
+
+export default newsListModule;

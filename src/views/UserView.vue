@@ -18,7 +18,7 @@
     userId: number;
 
     get user(): IUser {
-      return (<any>store.state).user.obj[this.userId];
+      return store.state.user.obj[this.userId];
     }
 
     created() {
