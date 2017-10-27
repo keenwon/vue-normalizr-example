@@ -65,6 +65,14 @@ const config = {
       app.get('/api/comments/:newsId', function(req, res) {
         res.json(mockData.comments[req.params.newsId] || {});
       });
+
+      app.get('/api/user/:userId', function(req, res) {
+        let user = mockData.users.find(item => {
+          return item.id === +req.params.userId;
+        });
+
+        res.json(user);
+      });
     }
   }
 };

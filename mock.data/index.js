@@ -116,5 +116,6 @@ const comments = {
 
 module.exports = {
   news,
+  users,
   comments
 };
