@@ -9,6 +9,7 @@ Vue.use(VueRouter);
 const routes: RouteConfig[] = [
   {
     path: '/',
+    alias: '/news',
     component: NewsListView
   },
   {

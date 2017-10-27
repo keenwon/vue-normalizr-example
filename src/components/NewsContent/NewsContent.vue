@@ -4,7 +4,7 @@
     <p>author: <router-link :to="'/user/' + news.author.id">{{news.author.name}}</router-link></p>
     <br />
     <p>{{news.content}}</p>
-    <a href="javascript:history.go(-1)">back</a>
+    <router-link to="/">back to list</router-link>
   </div>
 </template>
 
