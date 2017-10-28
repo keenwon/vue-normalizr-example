@@ -10,8 +10,6 @@
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
 
-  import store from '../store';
-
   @Component
   export default class App extends Vue {
   }

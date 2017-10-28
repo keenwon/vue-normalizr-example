@@ -11,14 +11,23 @@ const routes: RouteConfig[] = [
   {
     path: '/',
     alias: '/news',
+    meta: {
+      title: 'News List'
+    },
     component: NewsListView
   },
   {
     path: '/news/:newsId',
+    meta: {
+      title: 'News Detail'
+    },
     component: NewsContentView
   },
   {
     path: '/user/:userId',
+    meta: {
+      title: 'User'
+    },
     component: UserView
   }
 ]
@@ -26,6 +35,17 @@ const routes: RouteConfig[] = [
 const router: VueRouter = new VueRouter({
   mode: 'history',
   routes
+});
+
+const originalTitle: string = document.title;
+
+/**
+ * 通用的页面 title 逻辑
+ */
+router.afterEach((to: Route) => {
+  document.title = to.meta.title
+    ? `${to.meta.title} - ${originalTitle}`
+    : originalTitle;
 });
 
 export default router;
