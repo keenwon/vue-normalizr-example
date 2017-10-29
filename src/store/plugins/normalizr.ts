@@ -13,14 +13,16 @@ export default (store: Store<any>): void => {
 
     // schema 存在的话，执行 normalizr
     if (payload.schema && payload.data) {
-      let normalizedPayload = normalize(payload.data, payload.schema);
+      let { entities, result } = normalize(payload.data, payload.schema);
 
-      Vue.set(store.state, 'entities', {
-        ...store.state.entities,
-        ...normalizedPayload.entities
+      Object.keys(entities).forEach((key: string) => {
+        Vue.set(store.state.entities, key, {
+          ...(store.state.entities[key] || {}),
+          ...entities[key]
+        });
       });
 
-      newPayload = normalizedPayload.result;
+      newPayload = result;
     } else {
       newPayload = payload;
     }
