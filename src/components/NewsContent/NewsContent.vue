@@ -15,7 +15,6 @@
         </li>
       </ul>
     </template>
-    <router-link to="/">back to list</router-link>
   </div>
 </template>
 
