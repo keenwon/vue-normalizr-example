@@ -20,7 +20,11 @@ const state: IUserState = {
  */
 const getters: GetterTree<IUserState, any> = {
   item(state: IUserState, getters: any, rootState: any): Function {
-    return (userId: number): void => {
+    return (userId: number): any => {
+      if (!rootState.entities.user) {
+        return null;
+      }
+
       return denormalize(userId, userSchema, rootState.entities)
     }
   }
