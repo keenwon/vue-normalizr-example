@@ -22,7 +22,7 @@
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
 
-  import { INews, IComment } from '../../types';
+  import { INews, IComment } from '@/types';
 
   @Component
   export default class NewsContent extends Vue {

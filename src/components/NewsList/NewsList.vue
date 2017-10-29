@@ -10,7 +10,7 @@
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
 
-  import { INews } from '../../types';
+  import { INews } from '@/types';
 
   @Component
   export default class NewsList extends Vue {

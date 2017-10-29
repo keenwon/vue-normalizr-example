@@ -20,7 +20,10 @@ const config = {
     chunkFilename: '[name].js'
   },
   resolve: {
-    extensions: ['.ts', '.js', '.vue', '.json']
+    extensions: ['.ts', '.js', '.vue', '.json'],
+    alias: {
+      '@': './src'
+    }
   },
   plugins: [
     new FriendlyErrorsWebpackPlugin()
