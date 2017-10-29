@@ -7,7 +7,8 @@
       ],
     "lib": [
         "dom",
-        "es2015"
+        "es2015",
+        "es7"
     ],
     "module": "commonjs",
     "moduleResolution": "node",

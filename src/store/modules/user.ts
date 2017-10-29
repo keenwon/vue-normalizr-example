@@ -8,11 +8,11 @@ import fetch from '../fetch';
  * State
  */
 interface IUserState {
-  id: number | null
+  ids: Array<number>
 };
 
 const state: IUserState = {
-  id: null
+  ids: []
 };
 
 /**
@@ -20,13 +20,9 @@ const state: IUserState = {
  */
 const getters = {
   item(state: IUserState, getters: any, rootState: any) {
-    return denormalize(state.id, userSchema, rootState.entities);
-  },
-
-  itemFromCache(state: IUserState, getters: any, rootState: any) {
-    return (userId: number): boolean => {
-      return rootState.entities.user && rootState.entities.user[userId];
-    };
+    return (userId: number) => {
+      return denormalize(userId, userSchema, rootState.entities)
+    }
   }
 };
 
@@ -42,7 +38,7 @@ const mutations: MutationTree<IUserState> = {
    * @param payload user
    */
   [USER_FETCH](state: IUserState, payload: any): void {
-    state.id = payload.userId
+    state.ids.push(payload.userId);
   }
 }
 
@@ -50,8 +46,15 @@ const mutations: MutationTree<IUserState> = {
  * Action
  */
 const actions: ActionTree<IUserState, any> = {
-  getItem({ commit, getters }: ActionContext<IUserState, any>, userId: number) {
-    if (getters.itemFromCache(userId)) {
+  getItem({ commit, state, rootState }: ActionContext<IUserState, any>, userId: number) {
+    if (state.ids.includes(userId)) {
+      // 当前 state 存在 userID
+      return;
+    } else if (rootState.entities.user && rootState.entities.user[userId]) {
+      /**
+       * 当前 state 不存在 userID，但是 entities 里面存在
+       * 可能是 news 和 comments 中缓存的
+       */
       return commit(USER_FETCH, {
         userId
       });

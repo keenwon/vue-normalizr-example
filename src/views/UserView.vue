@@ -19,7 +19,7 @@
 
     get user(): IUser {
       // 取 store 中的当前用户
-      return store.getters['user/item'];
+      return store.getters['user/item'](this.userId);
     }
 
     created() {
