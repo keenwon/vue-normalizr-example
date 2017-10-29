@@ -56,7 +56,11 @@ const mutations: MutationTree<ICommentState> = {
  * Action
  */
 const actions: ActionTree<ICommentState, any> = {
-  getList({ commit }: ActionContext<ICommentState, any>, newsId: number) {
+  getList({ state, commit }: ActionContext<ICommentState, any>, newsId: number) {
+    if (state.map[newsId]) {
+      return;
+    }
+
     return fetch(`/api/comments/${newsId}`)
       .then(data => {
         let payload = {

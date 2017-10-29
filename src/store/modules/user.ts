@@ -21,6 +21,12 @@ const state: IUserState = {
 const getters = {
   item(state: IUserState, getters: any, rootState: any) {
     return denormalize(state.id, userSchema, rootState.entities);
+  },
+
+  itemFromCache(state: IUserState, getters: any, rootState: any) {
+    return (userId: number): boolean => {
+      return rootState.entities.user && rootState.entities.user[userId];
+    };
   }
 };
 
@@ -44,7 +50,13 @@ const mutations: MutationTree<IUserState> = {
  * Action
  */
 const actions: ActionTree<IUserState, any> = {
-  getItem({ commit }: ActionContext<IUserState, any>, userId: number) {
+  getItem({ commit, getters }: ActionContext<IUserState, any>, userId: number) {
+    if (getters.itemFromCache(userId)) {
+      return commit(USER_FETCH, {
+        userId
+      });
+    }
+
     return fetch(`/api/user/${userId}`)
       .then(data => {
         let payload = {

@@ -63,18 +63,26 @@ const mutations: MutationTree<INewsState> = {
  * Action
  */
 const actions: ActionTree<INewsState, any> = {
-  getItem(context: ActionContext<INewsState, any>, newsId: number) {
+  getItem({ state, commit }: ActionContext<INewsState, any>, newsId: number) {
+    if (typeof state.currentNewsId === 'number') {
+      return;
+    }
+
     return fetch(`/api/news/${newsId}`)
       .then(data => {
         let payload = {
           schema: newsSchema,
           data
         };
-        context.commit(NEWS_FETCH, payload);
+        commit(NEWS_FETCH, payload);
       });
   },
 
-  getList({ commit }: ActionContext<INewsState, any>) {
+  getList({ state, commit }: ActionContext<INewsState, any>) {
+    if (Array.isArray(state.newsIds) && state.newsIds.length > 0) {
+      return;
+    }
+
     return fetch('/api/news')
       .then(data => {
         let payload = {
