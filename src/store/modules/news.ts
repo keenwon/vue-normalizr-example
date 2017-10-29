@@ -1,4 +1,4 @@
-import { MutationTree, ActionTree, ActionContext, Module } from 'vuex';
+import { MutationTree, ActionTree, ActionContext, Module, GetterTree } from 'vuex';
 import { denormalize } from 'normalizr';
 import newsSchema from '../schema/news';
 import fetch from '../fetch';
@@ -19,12 +19,12 @@ const state: INewsState = {
 /**
  * Getter
  */
-const getters = {
-  list(state: INewsState, getters: any, rootState: any) {
+const getters: GetterTree<INewsState, any> = {
+  list(state: INewsState, getters: any, rootState: any): any {
     return denormalize(state.newsIds, [newsSchema], rootState.entities);
   },
 
-  item(state: INewsState, getters: any, rootState: any) {
+  item(state: INewsState, getters: any, rootState: any): any {
     if (!state.currentNewsId) {
       return null;
     }

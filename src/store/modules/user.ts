@@ -1,4 +1,4 @@
-import { MutationTree, ActionTree, ActionContext, Module } from 'vuex';
+import { MutationTree, ActionTree, ActionContext, Module, GetterTree } from 'vuex';
 import { denormalize } from 'normalizr';
 import { IUser } from '../../types';
 import userSchema from '../schema/user';
@@ -18,9 +18,9 @@ const state: IUserState = {
 /**
  * Getters
  */
-const getters = {
-  item(state: IUserState, getters: any, rootState: any) {
-    return (userId: number) => {
+const getters: GetterTree<IUserState, any> = {
+  item(state: IUserState, getters: any, rootState: any): Function {
+    return (userId: number): void => {
       return denormalize(userId, userSchema, rootState.entities)
     }
   }
@@ -46,7 +46,7 @@ const mutations: MutationTree<IUserState> = {
  * Action
  */
 const actions: ActionTree<IUserState, any> = {
-  getItem({ commit, state, rootState }: ActionContext<IUserState, any>, userId: number) {
+  getItem({ commit, state, rootState }: ActionContext<IUserState, any>, userId: number): any {
     if (state.ids.includes(userId)) {
       // 当前 state 存在 userID
       return;

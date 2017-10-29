@@ -1,4 +1,4 @@
-import { MutationTree, ActionTree, ActionContext, Module } from 'vuex';
+import { MutationTree, ActionTree, ActionContext, Module, GetterTree } from 'vuex';
 import { denormalize } from 'normalizr';
 import commentSchema from '../schema/comment';
 import fetch from '../fetch';
@@ -19,8 +19,8 @@ const state: ICommentState = {
 /**
  * Getters
  */
-const getters = {
-  list(state: ICommentState, getters: any, rootState: any) {
+const getters: GetterTree<ICommentState, any> = {
+  list(state: ICommentState, getters: any, rootState: any): any {
     return (newsId: number) => {
       let commentIds = state.map[newsId];
 
@@ -56,7 +56,7 @@ const mutations: MutationTree<ICommentState> = {
  * Action
  */
 const actions: ActionTree<ICommentState, any> = {
-  getList({ state, commit }: ActionContext<ICommentState, any>, newsId: number) {
+  getList({ state, commit }: ActionContext<ICommentState, any>, newsId: number): any {
     if (state.map[newsId]) {
       return;
     }
