@@ -1,18 +1,27 @@
 import { MutationTree, ActionTree, ActionContext, Module } from 'vuex';
+import { denormalize } from 'normalizr';
 import { IUser } from '../../types';
+import userSchema from '../schema/user';
 import fetch from '../fetch';
 
 /**
  * State
  */
 interface IUserState {
-  obj: {
-    [userId: number]: IUser
-  }
+  id: number | null
 };
 
 const state: IUserState = {
-  obj: {}
+  id: null
+};
+
+/**
+ * Getters
+ */
+const getters = {
+  item(state: IUserState, getters: any, rootState: any) {
+    return denormalize(state.id, userSchema, rootState.entities);
+  }
 };
 
 /**
@@ -27,10 +36,7 @@ const mutations: MutationTree<IUserState> = {
    * @param payload user
    */
   [USER_FETCH](state: IUserState, payload: any): void {
-    state.obj = {
-      ...state.obj,
-      [payload.userId]: payload.user
-    }
+    state.id = payload.userId
   }
 }
 
@@ -41,16 +47,24 @@ const actions: ActionTree<IUserState, any> = {
   getItem({ commit }: ActionContext<IUserState, any>, userId: number) {
     return fetch(`/api/user/${userId}`)
       .then(data => {
-        commit(USER_FETCH, {
-          userId: +userId,
-          user: data
-        });
+        let payload = {
+          schema: {
+            user: userSchema
+          },
+          data: {
+            userId: +userId,
+            user: data
+          }
+        };
+
+        commit(USER_FETCH, payload);
       });
   }
 }
 
 const userModule: Module<IUserState, any> = {
   namespaced: true,
+  getters,
   state,
   mutations,
   actions

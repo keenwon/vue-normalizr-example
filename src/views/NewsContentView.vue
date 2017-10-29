@@ -18,11 +18,11 @@
     newsId: number;
 
     get news(): INews {
-      return store.state.news.currentNews;
+      return store.getters['news/item'];
     }
 
     get commentList(): Array<IComment> {
-      return store.state.comment.obj[this.newsId] || [];
+      return store.getters['comment/list'](this.newsId);
     }
 
     created() {

@@ -1,18 +1,36 @@
 import { MutationTree, ActionTree, ActionContext, Module } from 'vuex';
-import { INews } from '../../types';
+import { denormalize } from 'normalizr';
+import newsSchema from '../schema/news';
 import fetch from '../fetch';
 
 /**
  * State
  */
 interface INewsState {
-  currentNews: INews | null,
-  list: Array<INews>
+  currentNewsId: number | null,
+  newsIds: Array<number>
 };
 
 const state: INewsState = {
-  currentNews: null,
-  list: []
+  currentNewsId: null,
+  newsIds: []
+};
+
+/**
+ * Getter
+ */
+const getters = {
+  list(state: INewsState, getters: any, rootState: any) {
+    return denormalize(state.newsIds, [newsSchema], rootState.entities);
+  },
+
+  item(state: INewsState, getters: any, rootState: any) {
+    if (!state.currentNewsId) {
+      return null;
+    }
+
+    return denormalize(state.currentNewsId, newsSchema, rootState.entities);
+  }
 };
 
 /**
@@ -27,8 +45,8 @@ const mutations: MutationTree<INewsState> = {
    * @param state state
    * @param payload news
    */
-  [NEWS_FETCH](state: INewsState, payload: INews): void {
-    state.currentNews = payload;
+  [NEWS_FETCH](state: INewsState, payload: number): void {
+    state.currentNewsId = payload;
   },
 
   /**
@@ -36,8 +54,8 @@ const mutations: MutationTree<INewsState> = {
    * @param state state
    * @param payload news list
    */
-  [NEWS_LIST_FETCH](state: INewsState, payload: Array<INews>): void {
-    state.list = payload;
+  [NEWS_LIST_FETCH](state: INewsState, payload: Array<number>): void {
+    state.newsIds = payload;
   }
 }
 
@@ -48,20 +66,29 @@ const actions: ActionTree<INewsState, any> = {
   getItem(context: ActionContext<INewsState, any>, newsId: number) {
     return fetch(`/api/news/${newsId}`)
       .then(data => {
-        context.commit(NEWS_FETCH, data);
+        let payload = {
+          schema: newsSchema,
+          data
+        };
+        context.commit(NEWS_FETCH, payload);
       });
   },
 
   getList({ commit }: ActionContext<INewsState, any>) {
     return fetch('/api/news')
       .then(data => {
-        commit(NEWS_LIST_FETCH, data);
+        let payload = {
+          schema: [newsSchema],
+          data
+        };
+        commit(NEWS_LIST_FETCH, payload);
       });
   }
 }
 
 const newsModule: Module<INewsState, any> = {
   namespaced: true,
+  getters,
   state,
   mutations,
   actions
