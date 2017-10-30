@@ -1,6 +1,5 @@
 import { MutationTree, ActionTree, ActionContext, Module, GetterTree } from 'vuex';
 import { denormalize } from 'normalizr';
-import { IUser } from '../../types';
 import userSchema from '../schema/user';
 import fetch from '../fetch';
 
