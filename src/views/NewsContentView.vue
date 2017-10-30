@@ -18,7 +18,7 @@
     newsId: number;
 
     get news(): INews {
-      return store.getters['news/item'];
+      return store.getters['news/item'](this.newsId);
     }
 
     get commentList(): Array<IComment> {

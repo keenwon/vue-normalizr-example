@@ -7,13 +7,13 @@ import fetch from '../fetch';
  * State
  */
 interface INewsState {
-  currentNewsId: number | null,
-  newsIds: Array<number>
+  detailNewsIds: Array<number>,
+  listNewsIds: Array<number>
 };
 
 const state: INewsState = {
-  currentNewsId: null,
-  newsIds: []
+  detailNewsIds: [],
+  listNewsIds: []
 };
 
 /**
@@ -23,19 +23,21 @@ const getters: GetterTree<INewsState, any> = {
   list(state: INewsState, getters: any, rootState: any, rootGetter: any): any {
     return rootGetter['list']({
       type: 'news',
-      ids: state.newsIds
+      ids: state.listNewsIds
     });
   },
 
   item(state: INewsState, getters: any, rootState: any, rootGetter: any): any {
-    if (!state.currentNewsId) {
-      return null;
+    return (newsId: number) => {
+      if (!state.detailNewsIds.includes(newsId)) {
+        return null;
+      }
+  
+      return rootGetter['item']({
+        type: 'news',
+        id: newsId
+      });
     }
-
-    return rootGetter['item']({
-      type: 'news',
-      id: state.currentNewsId
-    });
   }
 };
 
@@ -52,7 +54,7 @@ const mutations: MutationTree<INewsState> = {
    * @param payload news
    */
   [NEWS_FETCH](state: INewsState, payload: number): void {
-    state.currentNewsId = payload;
+    state.detailNewsIds.push(payload);
   },
 
   /**
@@ -61,7 +63,7 @@ const mutations: MutationTree<INewsState> = {
    * @param payload news list
    */
   [NEWS_LIST_FETCH](state: INewsState, payload: Array<number>): void {
-    state.newsIds = payload;
+    state.listNewsIds = payload;
   }
 }
 
@@ -70,7 +72,8 @@ const mutations: MutationTree<INewsState> = {
  */
 const actions: ActionTree<INewsState, any> = {
   getItem({ state, commit }: ActionContext<INewsState, any>, newsId: number) {
-    if (typeof state.currentNewsId === 'number') {
+    // detailNewsIds 中存在，说明获取过详情
+    if (state.detailNewsIds.includes(newsId)) {
       return;
     }
 
@@ -85,7 +88,7 @@ const actions: ActionTree<INewsState, any> = {
   },
 
   getList({ state, commit }: ActionContext<INewsState, any>) {
-    if (Array.isArray(state.newsIds) && state.newsIds.length > 0) {
+    if (Array.isArray(state.listNewsIds) && state.listNewsIds.length > 0) {
       return;
     }
 
