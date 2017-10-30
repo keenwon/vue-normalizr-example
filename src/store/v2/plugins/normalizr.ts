@@ -1,8 +1,10 @@
 import Vue from 'vue';
 import { Module, Store, Commit, CommitOptions } from 'vuex';
-import { normalize, Schema } from 'normalizr';
+import { denormalize, Schema } from 'normalizr';
 
 interface NStore<T> extends Store<T>, GlobalFetch { };
+
+let _schemas: Schema;
 
 const ENTITIES_UPDATE = 'ENTITIES_UPDATE';
 
@@ -15,7 +17,8 @@ const entitiesModule: Module<any, any> = {
         if (typeof type !== 'string' || typeof id !== 'number' || !rootState.entities[type]) {
           return null;
         }
-        return rootState.entities[type][id];
+
+        return denormalize(id, _schemas[type], rootState.entities);
       }
     },
 
@@ -26,9 +29,7 @@ const entitiesModule: Module<any, any> = {
           return [];
         }
 
-        return ids.map((id: number) => {
-          return rootState.entities[type][id];
-        });
+        return denormalize(ids, [_schemas[type]], rootState.entities);
       }
     },
   },
@@ -45,7 +46,11 @@ const entitiesModule: Module<any, any> = {
   }
 };
 
-export default (store: NStore<any>): void => {
-  // register entities module
-  store.registerModule('entities', entitiesModule);
-};
+export default function normalizrPluginCreator(schemas: Schema) {
+  _schemas = schemas;
+
+  return (store: NStore<any>): void => {
+    // register entities module
+    store.registerModule('entities', entitiesModule);
+  };
+}
