@@ -54,6 +54,10 @@ const mutations: MutationTree<INewsState> = {
    * @param payload news
    */
   [NEWS_FETCH](state: INewsState, payload: number): void {
+    if (state.detailNewsIds.includes(payload)) {
+      return;
+    }
+
     state.detailNewsIds.push(payload);
   },
 
@@ -71,9 +75,14 @@ const mutations: MutationTree<INewsState> = {
  * Action
  */
 const actions: ActionTree<INewsState, any> = {
-  getItem({ state, commit }: ActionContext<INewsState, any>, newsId: number) {
-    // detailNewsIds 中存在，说明获取过详情
-    if (state.detailNewsIds.includes(newsId)) {
+  getItem({ state, commit, getters }: ActionContext<INewsState, any>, newsId: number) {
+    /**
+     * 缓存有可能是“列表”接口获取的，也有可能是“详情”接口获取的，所以必须判断缓存的有效性：
+     * 
+     *    state.detailNewsIds 中存在
+     *    已经缓存的 news 包含 content 字段
+     */
+    if (state.detailNewsIds.includes(newsId) && getters.item(newsId).content) {
       return;
     }
 

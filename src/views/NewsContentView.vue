@@ -1,5 +1,8 @@
 <template>
-  <NewsContent :news="news" :commentList="commentList" />
+  <div>
+    <router-link to="/"><< back</router-link>
+    <NewsContent :news="news" :commentList="commentList" />
+  </div>
 </template>
 
 <script lang="ts">

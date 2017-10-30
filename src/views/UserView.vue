@@ -1,5 +1,8 @@
 <template>
-  <User :user="user" />
+  <div>
+    <router-link to="/"><< back</router-link>
+    <User :user="user" />
+  </div>
 </template>
 
 <script lang="ts">
