@@ -53,8 +53,18 @@ const config = {
       index: 'index.html'
     },
     before(app){
+      // news list
       app.get('/api/news', function(req, res) {
-        res.json(mockData.news);
+        let list = mockData.news.map(item => {
+          let newItem = Object.assign({}, item);
+
+          // 删除 content，模拟列表页和详情页的数据差异
+          delete newItem.content;
+
+          return newItem;
+        });
+
+        res.json(list);
       });
 
       app.get('/api/news/:newsId', function(req, res) {
