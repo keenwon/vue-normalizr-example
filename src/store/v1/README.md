@@ -1,5 +1,7 @@
 # store v1
 
+第一个版本的基于"normalizr 数据"的 store.
+
 ## normalize
 
 在 commit 一个 mutation 的时候，如果 payload 符合下述结构：

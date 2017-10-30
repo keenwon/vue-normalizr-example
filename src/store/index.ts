@@ -1,2 +1,2 @@
-import store from './v1';
+import store from './v2';
 export default store;
