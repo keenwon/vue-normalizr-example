@@ -1,5 +1,7 @@
 # store v1
 
+**注意：已经弃用，不在同步更新，可能跑不起来。**
+
 第一个版本的基于"normalizr 数据"的 store.
 
 ## normalize

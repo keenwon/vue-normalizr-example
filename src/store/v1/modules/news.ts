@@ -7,13 +7,13 @@ import fetch from '../fetch';
  * State
  */
 interface INewsState {
-  currentNewsId: number | null,
-  newsIds: Array<number>
+  detailNewsIds: Array<number>,
+  listNewsIds: Array<number>
 };
 
 const state: INewsState = {
-  currentNewsId: null,
-  newsIds: []
+  detailNewsIds: [],
+  listNewsIds: []
 };
 
 /**
@@ -21,15 +21,17 @@ const state: INewsState = {
  */
 const getters: GetterTree<INewsState, any> = {
   list(state: INewsState, getters: any, rootState: any): any {
-    return denormalize(state.newsIds, [newsSchema], rootState.entities);
+    return denormalize(state.listNewsIds, [newsSchema], rootState.entities);
   },
 
-  item(state: INewsState, getters: any, rootState: any): any {
-    if (!state.currentNewsId) {
-      return null;
+  item(state: INewsState, getters: any, rootState: any): Function {
+    return (newsId: number): any => {
+      if (!state.detailNewsIds.includes(newsId)) {
+        return null;
+      }
+  
+      return denormalize(newsId, newsSchema, rootState.entities);
     }
-
-    return denormalize(state.currentNewsId, newsSchema, rootState.entities);
   }
 };
 
@@ -46,7 +48,11 @@ const mutations: MutationTree<INewsState> = {
    * @param payload news
    */
   [NEWS_FETCH](state: INewsState, payload: number): void {
-    state.currentNewsId = payload;
+    if (state.detailNewsIds.includes(payload)) {
+      return;
+    }
+
+    state.detailNewsIds.push(payload);
   },
 
   /**
@@ -55,7 +61,7 @@ const mutations: MutationTree<INewsState> = {
    * @param payload news list
    */
   [NEWS_LIST_FETCH](state: INewsState, payload: Array<number>): void {
-    state.newsIds = payload;
+    state.listNewsIds = payload;
   }
 }
 
@@ -63,8 +69,14 @@ const mutations: MutationTree<INewsState> = {
  * Action
  */
 const actions: ActionTree<INewsState, any> = {
-  getItem({ state, commit }: ActionContext<INewsState, any>, newsId: number) {
-    if (typeof state.currentNewsId === 'number') {
+  getItem({ state, commit, getters }: ActionContext<INewsState, any>, newsId: number) {
+    /**
+     * 缓存有可能是“列表”接口获取的，也有可能是“详情”接口获取的，所以必须判断缓存的有效性：
+     * 
+     *    state.detailNewsIds 中存在
+     *    已经缓存的 news 包含 content 字段
+     */
+    if (state.detailNewsIds.includes(newsId) && getters.item(newsId).content) {
       return;
     }
 
@@ -79,7 +91,7 @@ const actions: ActionTree<INewsState, any> = {
   },
 
   getList({ state, commit }: ActionContext<INewsState, any>) {
-    if (Array.isArray(state.newsIds) && state.newsIds.length > 0) {
+    if (Array.isArray(state.listNewsIds) && state.listNewsIds.length > 0) {
       return;
     }
 
