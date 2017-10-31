@@ -3,6 +3,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
+const bodyParser = require('body-parser');
 const mockData = require('./mock.data');
 
 function getPath(tsPath) {
@@ -53,7 +54,12 @@ const config = {
       index: 'index.html'
     },
     before(app){
-      // news list
+      // parse from data
+      app.use(bodyParser.urlencoded({ 
+        extended: true 
+      }));
+
+      // 获取 news list
       app.get('/api/news', function(req, res) {
         let list = mockData.news.map(item => {
           let newItem = Object.assign({}, item);
@@ -67,6 +73,7 @@ const config = {
         res.json(list);
       });
 
+      // 获取 news 详情
       app.get('/api/news/:newsId', function(req, res) {
         let news = mockData.news.find(item => {
           return item.id === +req.params.newsId;
@@ -75,14 +82,30 @@ const config = {
         res.json(news);
       });
 
+      // 根据 newsId 获取评论列表
       app.get('/api/comments/:newsId', function(req, res) {
         res.json(mockData.comments[req.params.newsId] || {});
       });
 
+      // 获取用户详情
       app.get('/api/user/:userId', function(req, res) {
         let user = mockData.users.find(item => {
           return item.id === +req.params.userId;
         });
+
+        res.json(user);
+      });
+
+      // 修改用户信息
+      app.post('/api/user/:userId', function(req, res) {
+        let newName = req.body.name;
+
+        let user = mockData.users.find(item => {
+          return item.id === +req.params.userId;
+        });
+
+        // 修改内存中的用户名
+        user.name = newName;
 
         res.json(user);
       });
