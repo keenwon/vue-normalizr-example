@@ -1,7 +1,7 @@
 import { MutationTree, ActionTree, ActionContext, Module, GetterTree } from 'vuex';
 import { denormalize } from 'normalizr';
 import commentSchema from '../schema/comment';
-import fetch from '../fetch';
+import { fetch, NRequestInit } from '../fetch';
 
 /**
  * State
@@ -59,7 +59,7 @@ const actions: ActionTree<ICommentState, any> = {
       return;
     }
 
-    let options = {
+    let options: NRequestInit = {
       schema: [commentSchema]
     };
 

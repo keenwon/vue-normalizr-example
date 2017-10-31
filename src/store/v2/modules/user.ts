@@ -1,7 +1,7 @@
 import { MutationTree, ActionTree, ActionContext, Module, GetterTree } from 'vuex';
 import { denormalize } from 'normalizr';
 import userSchema from '../schema/user';
-import fetch from '../fetch';
+import { fetch, NRequestInit } from '../fetch';
 
 /**
  * State
@@ -62,7 +62,7 @@ const actions: ActionTree<IUserState, any> = {
       });
     }
 
-    let options = {
+    let options: NRequestInit = {
       schema: userSchema
     };
 

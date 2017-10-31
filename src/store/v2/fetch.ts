@@ -19,12 +19,12 @@ export function install(store: Store<any>) {
   _store = store;
 }
 
-interface NRequestInit extends RequestInit {
+export interface NRequestInit extends RequestInit {
   schema?: Schema;
 }
 
-export default function (input: RequestInfo, init?: NRequestInit): Promise<any> {
-  return fetch(input, init)
+export function fetch (input: RequestInfo, init?: NRequestInit): Promise<any> {
+  return window.fetch(input, init)
     .then(response => response.json())
     .then(data => {
       let outputData;
@@ -44,3 +44,5 @@ export default function (input: RequestInfo, init?: NRequestInit): Promise<any> 
       return outputData;
     });
 }
+
+export default fetch;
