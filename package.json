@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start": "webpack-dev-server --hot --color"
+    "start": "webpack-dev-server --hot --color",
+    "analyzer": "webpack --env production --profile --json > ./dist/stats.json && webpack-bundle-analyzer ./dist/stats.json -O"
   },
   "author": {
     "name": "keenwon",
@@ -27,6 +28,7 @@
     "vuex": "^3.0.0",
     "vuex-router-sync": "^5.0.0",
     "webpack": "^3.8.1",
+    "webpack-bundle-analyzer": "^2.9.0",
     "webpack-dev-server": "^2.9.3"
   }
 }
