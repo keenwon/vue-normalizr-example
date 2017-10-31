@@ -55,9 +55,7 @@ const config = {
     },
     before(app){
       // parse from data
-      app.use(bodyParser.urlencoded({ 
-        extended: true 
-      }));
+      app.use(bodyParser.json());
 
       // 获取 news list
       app.get('/api/news', function(req, res) {
@@ -97,11 +95,12 @@ const config = {
       });
 
       // 修改用户信息
-      app.post('/api/user/:userId', function(req, res) {
+      app.post('/api/user', function(req, res) {
+        let id = req.body.id;
         let newName = req.body.name;
 
         let user = mockData.users.find(item => {
-          return item.id === +req.params.userId;
+          return item.id === id;
         });
 
         // 修改内存中的用户名

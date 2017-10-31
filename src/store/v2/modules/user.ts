@@ -1,6 +1,7 @@
 import { MutationTree, ActionTree, ActionContext, Module, GetterTree } from 'vuex';
 import { denormalize } from 'normalizr';
 import userSchema from '../schema/user';
+import { IUser } from '@/types';
 import { fetch, NRequestInit } from '../fetch';
 
 /**
@@ -32,6 +33,7 @@ const getters: GetterTree<IUserState, any> = {
  * Mutations
  */
 const USER_FETCH = 'USER_FETCH';
+const USER_UPDATE = 'USER_UPDATE';
 const mutations: MutationTree<IUserState> = {
 
   /**
@@ -40,6 +42,18 @@ const mutations: MutationTree<IUserState> = {
    * @param payload user
    */
   [USER_FETCH](state: IUserState, payload: any): void {
+    if (state.ids.includes(payload)) {
+      return;
+    }
+
+    state.ids.push(payload);
+  },
+
+  [USER_UPDATE](state: IUserState, payload: any): void {
+    if (state.ids.includes(payload)) {
+      return;
+    }
+
     state.ids.push(payload);
   }
 }
@@ -69,6 +83,22 @@ const actions: ActionTree<IUserState, any> = {
     return fetch(`/api/user/${userId}`, options)
       .then(data => {
         commit(USER_FETCH, data);
+      });
+  },
+
+  update({ commit, state, rootState }: ActionContext<IUserState, any>, user: IUser): any {
+    let options: NRequestInit = {
+      method: 'POST',
+      body: JSON.stringify(user),
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      schema: userSchema
+    };
+
+    return fetch('/api/user', options)
+      .then(data => {
+        commit(USER_UPDATE, data);
       });
   }
 }

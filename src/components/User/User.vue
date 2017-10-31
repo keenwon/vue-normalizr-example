@@ -1,7 +1,15 @@
 <template>
   <div v-if="user">
     <p>id: {{user.id}}</p>
-    <p>name: {{user.name}}</p>
+    <p v-show="!isEdit">
+      name: {{user.name}}
+      <button @click="edit">edit</button>
+    </p>
+    <p v-show="isEdit">
+      name: 
+      <input v-model="user.name" @keyup.enter="save"/>
+      <button @click="save">save</button>
+    </p>
     <p>email: {{user.email}}</p>
   </div>
 </template>
@@ -15,7 +23,21 @@
   @Component
   export default class NewsList extends Vue {
     @Prop()
-    user: IUser
+    user: IUser;
+
+    @Prop()
+    update: (user: IUser) => void;
+
+    isEdit: boolean = false;
+
+    edit() {
+      this.isEdit = true;
+    }
+
+    save() {
+      this.isEdit = false;
+      this.update(this.user);
+    }
   }
 </script>
 
