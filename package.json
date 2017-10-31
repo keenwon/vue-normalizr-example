@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "start": "webpack-dev-server --hot --color",
-    "analyzer": "webpack --env production --profile --json > ./dist/stats.json && webpack-bundle-analyzer ./dist/stats.json -O"
+    "analyzer": "webpack --env production --profile --json > ./webpack.stats.json && webpack-bundle-analyzer ./webpack.stats.json -O"
   },
   "author": {
     "name": "keenwon",
