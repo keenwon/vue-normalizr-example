@@ -1,22 +1,22 @@
-import FetchConfig from '../interfaces/FetchConfig';
-import userSchema from '../../schema/user';
+import { IFetchConfig } from '../interfaces/IFetchConfig';
+import newsSchema from '../../schema/news';
 
 /**
  * 获取新闻详情
  */
-const itemRequest: FetchConfig = {
+export const newsItemRequest: IFetchConfig = {
   method: 'GET',
   url: '/api/news/:newsId',
-  schema: userSchema
+  schema: newsSchema
 };
 
 /**
  * 获取新闻列表
  */
-const listRequest: FetchConfig = {
+export const newsListRequest: IFetchConfig = {
   method: 'GET',
   url: '/api/news',
   schema: [
-    userSchema
+    newsSchema
   ]
 };

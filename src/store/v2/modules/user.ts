@@ -2,7 +2,7 @@ import { MutationTree, ActionTree, ActionContext, Module, GetterTree } from 'vue
 import { denormalize } from 'normalizr';
 import userSchema from '../schema/user';
 import { IUser } from '@/types';
-import { fetch, NRequestInit } from '../fetch';
+import fetch, { IFetchInit, userItemRequest, userUpdateRequest } from '../fetch';
 
 /**
  * State
@@ -76,27 +76,25 @@ const actions: ActionTree<IUserState, any> = {
       });
     }
 
-    let options: NRequestInit = {
-      schema: userSchema
+    let options: IFetchInit = {
+      params: {
+        userId
+      }
     };
 
-    return fetch(`/api/user/${userId}`, options)
+    return fetch(userItemRequest, options)
       .then(data => {
         commit(USER_FETCH, data);
       });
   },
 
   update({ commit, state, rootState }: ActionContext<IUserState, any>, user: IUser): any {
-    let options: NRequestInit = {
+    let options: IFetchInit = {
       method: 'POST',
-      body: JSON.stringify(user),
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      schema: userSchema
+      body: JSON.stringify(user)
     };
 
-    return fetch('/api/user', options)
+    return fetch(userUpdateRequest, options)
       .then(data => {
         commit(USER_UPDATE, data);
       });

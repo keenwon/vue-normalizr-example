@@ -1,7 +1,6 @@
 import { MutationTree, ActionTree, ActionContext, Module, GetterTree } from 'vuex';
 import { denormalize } from 'normalizr';
-import commentSchema from '../schema/comment';
-import { fetch, NRequestInit } from '../fetch';
+import fetch, { IFetchInit, commentListRequest } from '../fetch';
 
 /**
  * State
@@ -59,11 +58,13 @@ const actions: ActionTree<ICommentState, any> = {
       return;
     }
 
-    let options: NRequestInit = {
-      schema: [commentSchema]
+    let options: IFetchInit = {
+      params: {
+        newsId,
+      }
     };
 
-    return fetch(`/api/comments/${newsId}`, options)
+    return fetch(commentListRequest, options)
       .then(data => {
         commit(COMMENTS_FETCH, {
           newsId,

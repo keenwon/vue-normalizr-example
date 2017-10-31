@@ -1,7 +1,6 @@
 import { MutationTree, ActionTree, ActionContext, Module, GetterTree } from 'vuex';
 import { denormalize } from 'normalizr';
-import newsSchema from '../schema/news';
-import { fetch, NRequestInit } from '../fetch';
+import fetch, { IFetchInit, newsItemRequest, newsListRequest } from '../fetch';
 
 /**
  * State
@@ -86,11 +85,13 @@ const actions: ActionTree<INewsState, any> = {
       return;
     }
 
-    let options = {
-      schema: newsSchema
+    let options: IFetchInit = {
+      params: {
+        newsId
+      }
     };
 
-    return fetch(`/api/news/${newsId}`, options)
+    return fetch(newsItemRequest, options)
       .then(data => {
         commit(NEWS_FETCH, data);
       });
@@ -101,11 +102,7 @@ const actions: ActionTree<INewsState, any> = {
       return;
     }
 
-    let options: NRequestInit = {
-      schema: [newsSchema]
-    };
-
-    return fetch('/api/news', options)
+    return fetch(newsListRequest)
       .then(data => {
         commit(NEWS_LIST_FETCH, data);
       });

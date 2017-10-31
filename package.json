@@ -12,6 +12,7 @@
   },
   "license": "MIT",
   "devDependencies": {
+    "@types/lodash": "^4.14.80",
     "@types/node": "^8.0.47",
     "@types/query-string": "^5.0.1",
     "@types/webpack-env": "^1.13.2",

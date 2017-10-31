@@ -1,6 +1,6 @@
 import { Schema } from 'normalizr';
 
-export default interface FetchConfig {
+export interface IFetchConfig {
   url: string;
   method: 'GET' | 'POST' | 'PATH' | 'DELETE' | 'PUT';
   schema?: Schema

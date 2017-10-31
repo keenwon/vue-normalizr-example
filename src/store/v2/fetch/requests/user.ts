@@ -1,10 +1,10 @@
-import FetchConfig from '../interfaces/FetchConfig';
+import { IFetchConfig } from '../interfaces/IFetchConfig';
 import userSchema from '../../schema/user';
 
 /**
  * 获取用户详情
  */
-const itemRequest: FetchConfig = {
+export const userItemRequest: IFetchConfig = {
   method: 'GET',
   url: '/api/user/:userId',
   schema: userSchema
@@ -13,8 +13,8 @@ const itemRequest: FetchConfig = {
 /**
  * 更新用户信息
  */
-const updateRequest: FetchConfig = {
+export const userUpdateRequest: IFetchConfig = {
   method: 'POST',
-  url: '/api/user/:userId',
+  url: '/api/user',
   schema: userSchema
 }

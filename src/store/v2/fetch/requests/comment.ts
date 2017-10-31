@@ -1,10 +1,10 @@
-import FetchConfig from '../interfaces/FetchConfig';
+import { IFetchConfig } from '../interfaces/IFetchConfig';
 import commentSchema from '../../schema/comment';
 
 /**
  * 获取评论列表
  */
-const listRequest: FetchConfig = {
+export const commentListRequest: IFetchConfig = {
   method: 'GET',
   url: '/api/comments/:newsId',
   schema: [
