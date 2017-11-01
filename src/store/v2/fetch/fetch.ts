@@ -1,6 +1,6 @@
 import { Store } from 'vuex';
 import { normalize, Schema } from 'normalizr';
-import { merge } from 'lodash';
+import merge from 'lodash/merge';
 import { IFetchConfig } from './interfaces/IFetchConfig';
 import { IFetchInit } from './interfaces/IFetchInit';
 import { compile } from 'path-to-regexp';

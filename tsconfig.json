@@ -4,19 +4,22 @@
     "paths": {
       "@/*": [
         "./src/*"
+      ],
+      "lodash/*": [
+        "node_modules/@types/lodash-es/*"
       ]
     },
     "target": "es6",
     "types": [
-        "node",
-        "webpack-env"
-      ],
-    "lib": [
-        "dom",
-        "es2015",
-        "es7"
+      "node",
+      "webpack-env"
     ],
-    "module": "commonjs",
+    "lib": [
+      "dom",
+      "es2015",
+      "es7"
+    ],
+    "module": "es6",
     "moduleResolution": "node",
     "experimentalDecorators": true,
     "strict": true,
