@@ -7,6 +7,6 @@ export * from './requests/user';
 
 import fetch, { install } from './fetch';
 
-export { install };
+export { install, fetch };
 
 export default fetch;
