@@ -9,7 +9,7 @@
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
   import NewsContent from '../components/NewsContent';
-  import store from '../store';
+
   import { INews, IComment } from '../types';
 
   @Component({
@@ -21,18 +21,18 @@
     newsId: number;
 
     get news(): INews {
-      return store.getters['news/item'](this.newsId);
+      return this.$store.getters['news/item'](this.newsId);
     }
 
     get commentList(): Array<IComment> {
-      return store.getters['comment/list'](this.newsId);
+      return this.$store.getters['comment/list'](this.newsId);
     }
 
     created() {
       this.newsId = +this.$route.params.newsId;
 
-      store.dispatch('news/getItem', this.newsId);
-      store.dispatch('comment/getList', this.newsId);
+      this.$store.dispatch('news/getItem', this.newsId);
+      this.$store.dispatch('comment/getList', this.newsId);
     }
   }
 </script>

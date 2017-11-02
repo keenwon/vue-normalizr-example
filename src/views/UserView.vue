@@ -9,7 +9,7 @@
 import Vue from 'vue';
 import { Component } from 'vue-property-decorator';
 import User from '../components/User';
-import store from '../store';
+
 import { IUser } from '../types';
 
 @Component({
@@ -22,17 +22,17 @@ export default class UserView extends Vue {
 
   get user(): IUser {
     // 取 store 中的当前用户
-    return store.getters['user/item'](this.userId);
+    return this.$store.getters['user/item'](this.userId);
   }
 
   created(): void {
     this.userId = +this.$route.params.userId;
 
-    store.dispatch('user/getItem', this.userId);
+    this.$store.dispatch('user/getItem', this.userId);
   }
 
   update(user: IUser): void {
-    store.dispatch('user/update', user);
+    this.$store.dispatch('user/update', user);
   }
 }
 </script>

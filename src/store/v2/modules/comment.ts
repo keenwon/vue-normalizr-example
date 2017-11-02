@@ -19,10 +19,20 @@ const state: ICommentState = {
  * Getters
  */
 const getters: GetterTree<ICommentState, any> = {
-  list(state: ICommentState, getters: any, rootState: any, rootGetters: any): any {
-    return (newsId: number) => {
+  list(
+    state: ICommentState,
+    getters: GetterTree<ICommentState, any>,
+    rootState: any,
+    rootGetters: any
+  ): Function {
+    return (newsId: number): any => {
       let commentIds = state.map[newsId];
-      return rootGetters['list']({
+
+      if (!commentIds) {
+        return [];
+      }
+
+      return rootGetters.getListFromCache({
         type: 'comment',
         ids: commentIds
       });

@@ -19,9 +19,14 @@ const state: IUserState = {
  * Getters
  */
 const getters: GetterTree<IUserState, any> = {
-  item(state: IUserState, getters: any, rootState: any, rootGetters: any): Function {
+  item(
+    state: IUserState,
+    getters: GetterTree<IUserState, any>,
+    rootState: any,
+    rootGetters: any
+  ): Function {
     return (userId: number): any => {
-      return rootGetters['item']({
+      return rootGetters.getItemFromCache({
         type: 'user',
         id: userId
       });

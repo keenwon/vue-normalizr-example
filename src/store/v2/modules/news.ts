@@ -19,20 +19,30 @@ const state: INewsState = {
  * Getter
  */
 const getters: GetterTree<INewsState, any> = {
-  list(state: INewsState, getters: any, rootState: any, rootGetter: any): any {
-    return rootGetter['list']({
+  list(
+    state: INewsState,
+    getters: GetterTree<INewsState, any>,
+    rootState: any,
+    rootGetter: any
+  ): any {
+    return rootGetter.getListFromCache({
       type: 'news',
       ids: state.listNewsIds
     });
   },
 
-  item(state: INewsState, getters: any, rootState: any, rootGetter: any): any {
+  item(
+    state: INewsState,
+    getters: GetterTree<INewsState, any>,
+    rootState: any,
+    rootGetter: any
+  ): Function {
     return (newsId: number) => {
       if (!state.detailNewsIds.includes(newsId)) {
         return null;
       }
   
-      return rootGetter['item']({
+      return rootGetter.getItemFromCache({
         type: 'news',
         id: newsId
       });

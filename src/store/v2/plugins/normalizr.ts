@@ -8,13 +8,20 @@ let _schemas: Schema;
 
 const ENTITIES_UPDATE = 'ENTITIES_UPDATE';
 
+/**
+ * entities module
+ */
 const entitiesModule: Module<any, any> = {
   state: Object.create(null),
 
   getters: {
-    item(state: any, getters: any, rootState: any): any {
-      return ({ type, id }: { type: string, id: number }) => {
-        if (typeof type !== 'string' || typeof id !== 'number' || !rootState.entities[type]) {
+    getItemFromCache(state: any, getters: any, rootState: any): Function {
+      return ({ type, id }: { type: string, id: number }): any => {
+        if (typeof type !== 'string' || typeof id !== 'number') {
+          throw new Error('[getItemFromCache] Missing required argument.');
+        }
+
+        if (!rootState.entities[type]) {
           return null;
         }
 
@@ -22,10 +29,13 @@ const entitiesModule: Module<any, any> = {
       }
     },
 
-    list(state: any, getters: any, rootState: any): Function {
+    getListFromCache(state: any, getters: any, rootState: any): Function {
       return ({ type, ids }: { type: string, ids: Array<number> }): Array<any> => {
-        if (!type || !rootState.entities[type]
-          || !Array.isArray(ids) || ids.length === 0) {
+        if (typeof type !== 'string' || !Array.isArray(ids)) {
+          throw new Error('[getListFromCahce] Missing required argument.');
+        }
+
+        if (!rootState.entities[type] || ids.length === 0) {
           return [];
         }
 

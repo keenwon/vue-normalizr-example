@@ -8,8 +8,6 @@
 
   import NewsList from '../components/NewsList';
 
-  import store from '../store';
-
   @Component({
     components: {
       NewsList
@@ -17,11 +15,11 @@
   })
   export default class NewsListView extends Vue {
     get newsList() {
-      return store.getters['news/list'];
+      return this.$store.getters['news/list'];
     }
 
     created() {
-      store.dispatch('news/getList');
+      this.$store.dispatch('news/getList');
     }
   }
 </script>
