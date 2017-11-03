@@ -4,7 +4,8 @@
   "description": "",
   "scripts": {
     "start": "webpack-dev-server --hot --color",
-    "analyzer": "webpack --env production --profile --json > ./webpack.stats.json && webpack-bundle-analyzer ./webpack.stats.json -O"
+    "analyzer": "webpack --env production --profile --json > ./webpack.stats.json && webpack-bundle-analyzer ./webpack.stats.json -O",
+    "test": "mocha --require ./test/ts-register test/**/*.spec.ts"
   },
   "author": {
     "name": "keenwon",
@@ -19,10 +20,14 @@
     "body-parser": "^1.18.2",
     "friendly-errors-webpack-plugin": "^1.6.1",
     "lodash": "^4.17.4",
+    "mocha": "^4.0.1",
+    "mocha-typescript": "^1.1.12",
     "normalizr": "^3.2.4",
     "path-to-regexp": "^2.1.0",
     "query-string": "^5.0.1",
+    "should": "^13.1.3",
     "ts-loader": "^3.0.5",
+    "ts-node": "^3.3.0",
     "typescript": "^2.5.3",
     "vue": "^2.5.2",
     "vue-class-component": "^6.0.0",

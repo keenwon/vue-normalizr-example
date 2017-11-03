@@ -35,9 +35,9 @@ const getters: GetterTree<IUserState, any> = {
 /**
  * Mutations
  */
-const USER_FETCH = 'USER_FETCH';
-const USER_UPDATE = 'USER_UPDATE';
-const mutations: MutationTree<IUserState> = {
+export const USER_FETCH = 'USER_FETCH';
+export const USER_UPDATE = 'USER_UPDATE';
+export const mutations: MutationTree<IUserState> = {
 
   /**
    * get user
