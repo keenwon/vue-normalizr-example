@@ -1,5 +1,4 @@
 import { MutationTree, ActionTree, ActionContext, Module, GetterTree } from 'vuex';
-import { denormalize } from 'normalizr';
 import fetch, { IFetchInit, newsItemRequest, newsListRequest } from '../fetch';
 
 /**

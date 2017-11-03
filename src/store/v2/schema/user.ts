@@ -1,4 +1,4 @@
-import { normalize, denormalize, schema } from 'normalizr';
+import { schema } from 'normalizr';
 
 const userSchema: schema.Entity = new schema.Entity('user');
 

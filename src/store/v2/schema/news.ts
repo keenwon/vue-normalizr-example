@@ -1,4 +1,4 @@
-import { normalize, denormalize, schema } from 'normalizr';
+import { schema } from 'normalizr';
 import userSchema from './user';
 import commentSchema from './comment';
 

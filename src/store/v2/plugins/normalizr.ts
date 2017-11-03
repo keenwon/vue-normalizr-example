@@ -1,8 +1,6 @@
 import Vue from 'vue';
-import { Module, Store, Commit, CommitOptions } from 'vuex';
+import { Module, Store } from 'vuex';
 import { denormalize, Schema } from 'normalizr';
-
-interface NStore<T> extends Store<T>, GlobalFetch { };
 
 let _schemas: Schema;
 
@@ -59,7 +57,7 @@ const entitiesModule: Module<any, any> = {
 export default function normalizrPluginCreator(schemas: Schema) {
   _schemas = schemas;
 
-  return (store: NStore<any>): void => {
+  return (store: Store<any>): void => {
     // register entities module
     store.registerModule('entities', entitiesModule);
   };
