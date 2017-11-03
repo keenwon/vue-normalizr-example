@@ -39,7 +39,7 @@ const entitiesModule: Module<any, any> = {
 
         return denormalize(ids, [_schemas[type]], rootState.entities);
       }
-    },
+    }
   },
 
   mutations: {

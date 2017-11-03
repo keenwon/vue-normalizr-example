@@ -5,6 +5,6 @@ export default interface INews {
   id: number;
   title: string;
   content: string;
-  author: IUser,
-  comments? : Array<IComment>
+  author: IUser;
+  comments? : Array<IComment>;
 };
