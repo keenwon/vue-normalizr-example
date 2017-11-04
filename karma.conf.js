@@ -2,13 +2,13 @@ const webpackConfig = require('./webpack.config');
 
 module.exports = (config) => {
   config.set({
-    frameworks: ['mocha', 'should'],
+    frameworks: ['mocha', 'should', 'source-map-support'],
     files: [
       'test/index.ts'
     ],
-    reporters: ['spec', 'coverage'],
+    reporters: ['spec', 'coverage-istanbul'],
     preprocessors: {
-      'test/index.ts': ['webpack', 'coverage']
+      'test/index.ts': ['webpack']
     },
     colors: true,
     browsers: ['ChromeHeadless'],
@@ -21,19 +21,21 @@ module.exports = (config) => {
     mime: {
       'text/x-typescript': ['ts']
     },
-    coverageReporter: {
+    coverageIstanbulReporter: {
+      reports: [
+        'html',
+        'text',
+        'text-summary'
+      ],
       dir: './coverage',
-      reporters: [
-        { type: 'lcov', subdir: '.' },
-        { type: 'text-summary' }
-      ]
+      fixWebpackSourcePaths: true
     },
     plugins: [
       'karma-chrome-launcher',
-      'karma-coverage',
+      'karma-coverage-istanbul-reporter',
       'karma-mocha',
       'karma-should',
-      'karma-sourcemap-loader',
+      'karma-source-map-support',
       'karma-spec-reporter',
       'karma-webpack'
     ]
