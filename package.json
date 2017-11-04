@@ -4,8 +4,8 @@
   "description": "",
   "scripts": {
     "start": "webpack-dev-server --hot --color",
-    "analyzer": "webpack --env production --profile --json > ./webpack.stats.json && webpack-bundle-analyzer ./webpack.stats.json -O",
-    "test": "karma start karma.conf.js --single-run"
+    "analyzer": "cross-env NODE_ENV=production webpack --profile --json > ./build/webpack.stats.json && webpack-bundle-analyzer ./build/webpack.stats.json",
+    "test": "cross-env NODE_ENV=test karma start karma.conf.js --single-run"
   },
   "author": {
     "name": "keenwon",
@@ -19,6 +19,7 @@
     "@types/query-string": "^5.0.1",
     "@types/webpack-env": "^1.13.2",
     "body-parser": "^1.18.2",
+    "cross-env": "^5.1.1",
     "friendly-errors-webpack-plugin": "^1.6.1",
     "karma": "^1.7.1",
     "karma-chrome-launcher": "^2.2.0",
@@ -48,6 +49,7 @@
     "vuex-router-sync": "^5.0.0",
     "webpack": "^3.8.1",
     "webpack-bundle-analyzer": "^2.9.0",
-    "webpack-dev-server": "^2.9.3"
+    "webpack-dev-server": "^2.9.3",
+    "webpack-merge": "^4.1.1"
   }
 }

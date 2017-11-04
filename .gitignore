@@ -6,5 +6,5 @@ npm-debug.log
 
 # 生成文件
 dist/
-webpack.stats.json
+build/webpack.stats.json
 coverage/
