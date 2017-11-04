@@ -8,4 +8,10 @@ npm install
 
 # run
 npm start
+
+# webpack bundle analyzer
+npm run analyzer
+
+# test
+npm test
 ```
