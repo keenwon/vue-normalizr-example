@@ -7,3 +7,4 @@ npm-debug.log
 # 生成文件
 dist/
 webpack.stats.json
+coverage/
