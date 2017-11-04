@@ -19,7 +19,7 @@ module.exports = {
   resolve: {
     extensions: ['.ts', '.js', '.vue', '.json'],
     alias: {
-      '@': './src'
+      '@': getPath('src')
     }
   },
   module: {
