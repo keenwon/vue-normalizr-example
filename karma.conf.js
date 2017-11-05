@@ -2,7 +2,7 @@ const webpackConfig = require('./webpack.config');
 
 module.exports = (config) => {
   config.set({
-    frameworks: ['mocha', 'should', 'source-map-support'],
+    frameworks: ['source-map-support', 'mocha', 'chai'],
     files: [
       'test/index.ts'
     ],
@@ -34,7 +34,7 @@ module.exports = (config) => {
       'karma-chrome-launcher',
       'karma-coverage-istanbul-reporter',
       'karma-mocha',
-      'karma-should',
+      'karma-chai',
       'karma-source-map-support',
       'karma-spec-reporter',
       'karma-webpack'

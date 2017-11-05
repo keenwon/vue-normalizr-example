@@ -35,9 +35,9 @@ const getters: GetterTree<IUserState, any> = {
 /**
  * Mutations
  */
-export const USER_FETCH = 'USER_FETCH';
-export const USER_UPDATE = 'USER_UPDATE';
-export const mutations: MutationTree<IUserState> = {
+const USER_FETCH = 'USER_FETCH';
+const USER_UPDATE = 'USER_UPDATE';
+const mutations: MutationTree<IUserState> = {
 
   /**
    * get user
@@ -65,18 +65,20 @@ export const mutations: MutationTree<IUserState> = {
  * Action
  */
 const actions: ActionTree<IUserState, any> = {
-  getItem({ commit, state, rootState }: ActionContext<IUserState, any>, userId: number): any {
+  getItem({ commit, state, rootState }: ActionContext<IUserState, any>, userId: number): Promise<any> {
     if (state.ids.includes(userId)) {
       // 当前 state 存在 userID
-      return;
+      return Promise.resolve(null);
     } else if (rootState.entities.user && rootState.entities.user[userId]) {
       /**
        * 当前 state 不存在 userID，但是 entities 里面存在
        * 可能是 news 和 comments 中缓存的
        */
-      return commit(USER_FETCH, {
+      commit(USER_FETCH, {
         userId
       });
+
+      return Promise.resolve(null);
     }
 
     let options: IFetchInit = {

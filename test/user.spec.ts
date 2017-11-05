@@ -1,16 +1,30 @@
 import { suite, test, slow, timeout } from 'mocha-typescript';
-import 'should';
-import { mutations, USER_FETCH, USER_UPDATE } from '@/store/v2/modules/user';
+import { mockFetch, resetFetch } from './mock/fetch';
+import { getters } from '@/store/v2/modules/user';
+
+import store from '@/store';
+import 'chai';
 
 @suite('User Test')
 class UserTest {
+  after() {
+    resetFetch();
+  }
+
   @test 'user fetch'() {
-    const state = {
-      ids: []
-    };
+    let id = 1001;
 
-    mutations[USER_FETCH](state, 1);
+    mockFetch({
+      id,
+      name: 'zhang san',
+      email: 'zhangsan@example.com'
+    });
 
-    return state.ids.should.deepEqual([1]);
+    return store
+      .dispatch('user/getItem', id)
+      .then(() => {
+        return store.state.user.ids
+          .should.deep.equal([id]);
+      });
   }
 }
