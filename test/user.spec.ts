@@ -1,6 +1,5 @@
 import { suite, test, slow, timeout } from 'mocha-typescript';
 import { mockFetch, resetFetch } from './mock/fetch';
-import { getters } from '@/store/v2/modules/user';
 
 import store from '@/store';
 import 'chai';
