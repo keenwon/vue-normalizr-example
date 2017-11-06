@@ -26,7 +26,7 @@ class UserTest {
       .dispatch('user/getItem', user.id)
       .then(() => {
         let checkState = store.state.user.ids.should.deep.equal([user.id]);
-        let checkEntities = store.state.entities.user[user.id].should.deep.equal(user);
+        let checkEntities = store.getters['user/item'](user.id).should.deep.equal(user);
 
         return checkState && checkEntities;
       });

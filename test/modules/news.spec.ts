@@ -1,8 +1,6 @@
 import { suite, test, slow, timeout } from 'mocha-typescript';
 import { mockFetch } from '../mock/fetch';
 import { newsItemRequest, newsListRequest, IFetchInit } from '@/store/v2/fetch';
-import { normalize } from 'normalizr';
-import schemas from '@/store/v2/schema'
 
 import store from '@/store';
 import 'chai';
@@ -33,15 +31,15 @@ class NewsTest {
       }
     ];
 
-    let normalizedData = normalize(newsList, [schemas.news]);
-
     mockFetch(newsListRequest, {}, newsList);
 
     return store
       .dispatch('news/getList')
       .then(() => {
-        let checkState = store.state.news.listNewsIds.should.deep.equal(normalizedData.result);
-        let checkEntities = store.state.entities.news.should.deep.equal(normalizedData.entities.news);
+        let newsIds = [201710260001, 201710260002];
+
+        let checkState = store.state.news.listNewsIds.should.deep.equal(newsIds);
+        let checkEntities = store.getters['news/list'].should.deep.equal(newsList);
 
         return checkState && checkEntities;
       });
@@ -67,16 +65,13 @@ class NewsTest {
       }
     };
 
-    let normalizedData = normalize(news, schemas.news);
-
     mockFetch(newsItemRequest, options, news);
 
     return store
       .dispatch('news/getItem', newsId)
       .then(() => {
-        let checkState = store.state.news.detailNewsIds.should.includes(normalizedData.result);
-        let checkEntities = store.state.entities.news[newsId.toString()]
-          .should.deep.equal(normalizedData.entities.news[newsId.toString()]);
+        let checkState = store.state.news.detailNewsIds.should.includes(newsId);
+        let checkEntities = store.getters['news/item'](newsId).should.deep.equal(news);
 
         return checkState && checkEntities;
       });
