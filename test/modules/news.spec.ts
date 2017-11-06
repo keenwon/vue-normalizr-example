@@ -1,5 +1,5 @@
 import { suite, test, slow, timeout } from 'mocha-typescript';
-import { mockFetch } from './mock/fetch';
+import { mockFetch } from '../mock/fetch';
 import { newsItemRequest, newsListRequest, IFetchInit } from '@/store/v2/fetch';
 import { normalize } from 'normalizr';
 import schemas from '@/store/v2/schema'
