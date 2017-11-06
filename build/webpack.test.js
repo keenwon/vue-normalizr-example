@@ -1,11 +1,17 @@
 'use strict';
 
+const webpack = require('webpack');
 const merge = require('webpack-merge');
 const common = require('./webpack.common');
 
 module.exports = merge(common, {
   entry: {},
-  devtool: 'inline-source-map',
+  plugins: [
+    new webpack.SourceMapDevToolPlugin({
+      filename: null,
+      test: /\.(ts|js)($|\?)/i
+    })
+  ],
   module: {
     loaders: [
       {
