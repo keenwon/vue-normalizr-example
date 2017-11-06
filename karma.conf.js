@@ -11,7 +11,7 @@ module.exports = (config) => {
       'test/index.ts': ['webpack']
     },
     colors: true,
-    browsers: ['ChromeHeadless'],
+    browsers: ['Chrome'],
     autoWatch: false,
     concurrency: Infinity,
     webpack: webpackConfig,
