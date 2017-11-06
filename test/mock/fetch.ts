@@ -1,17 +1,27 @@
-const fetch = window.fetch;
+import { IFetchConfig, IFetchInit, fetchParamParser } from '@/store/v2/fetch'
+
+const _map = {};
+
+function getCacheKey(url: string, init?: IFetchInit) {
+  return init
+    ? url + JSON.stringify(init)
+    : url;
+}
 
 /**
  * mock window.fetch
  */
-export function mockFetch(responseData: any): void {
-  let response = new Response(JSON.stringify(responseData));
+window.fetch = (url: string, init?: IFetchInit) => {
+  let key = getCacheKey(url, init);
+  let data = _map[key] || {};
+  let response = new Response(JSON.stringify(data));
 
-  window.fetch = () => Promise.resolve(response);
+  return Promise.resolve(response);
 };
 
-/**
- * reset window.fetch
- */
-export function resetFetch(): void {
-  window.fetch = fetch;
-}
+export function mockFetch(config: IFetchConfig, init: IFetchInit = {}, responseData: any = {}): void {
+  let [ url, newInit] = fetchParamParser(config, init);
+  let key = getCacheKey(url, newInit);
+
+  _map[key] = responseData;
+};

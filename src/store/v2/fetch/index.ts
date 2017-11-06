@@ -5,8 +5,8 @@ export * from './requests/comment';
 export * from './requests/news';
 export * from './requests/user';
 
-import fetch, { install } from './fetch';
+import fetch, { install, fetchParamParser } from './fetch';
 
-export { install, fetch };
+export { install, fetch, fetchParamParser};
 
 export default fetch;

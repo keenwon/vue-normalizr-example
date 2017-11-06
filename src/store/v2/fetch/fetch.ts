@@ -32,8 +32,13 @@ const defaultInit = {
   }
 };
 
-export function fetch({ url, method, schema }: IFetchConfig, init?: IFetchInit): Promise<any> {
-  // 编译 url
+/**
+ * 处理 fetch 参数
+ */
+export function fetchParamParser(config: IFetchConfig, init?: IFetchInit): [string, IFetchConfig] {
+  let { url, method, schema } = config;
+
+  // 解析 url
   if (url.includes(':') && init && init.params) {
     url = compile(url)(init.params);
   }
@@ -42,17 +47,24 @@ export function fetch({ url, method, schema }: IFetchConfig, init?: IFetchInit):
   if (method === 'GET' && init && init.body) {
     let query = stringify(init.body);
 
-    if (url.includes('?')) {
-      url = `${url}&${query}`;
-    } else {
-      url = `${url}?${query}`;
-    }
+    url = url.includes('?')
+      ? `${url}&${query}`
+      : `${url}?${query}`;
   }
 
   // merge init
   init = merge({}, defaultInit, init);
 
-  return window.fetch(url, init)
+  return [url, <IFetchConfig>init];
+}
+
+export function fetch(config: IFetchConfig, init?: IFetchInit): Promise<any> {
+  let { schema } = config;
+
+  // parser param
+  let [url, newInit] = fetchParamParser(config, init);
+
+  return window.fetch(url, newInit)
     .then(response => response.json())
     .then(responseData => {
       let data;
