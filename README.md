@@ -1,6 +1,6 @@
-# vue-normailzr-example
+# vue-normalizr-example
 
-build web app with typescript, vue and normailzr
+build web app with typescript, vue and normalizr
 
 ```shell
 # install
