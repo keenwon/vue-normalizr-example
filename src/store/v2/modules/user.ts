@@ -95,7 +95,6 @@ const actions: ActionTree<IUserState, any> = {
 
   update({ commit, state, rootState }: ActionContext<IUserState, any>, user: IUser): any {
     let options: IFetchInit = {
-      method: 'POST',
       body: JSON.stringify(user)
     };
 

@@ -53,7 +53,7 @@ export function fetchParamParser(config: IFetchConfig, init?: IFetchInit): [stri
   }
 
   // merge init
-  init = merge({}, defaultInit, init);
+  init = merge({ method }, defaultInit, init);
 
   return [url, <IFetchConfig>init];
 }
@@ -65,7 +65,7 @@ export function fetch(config: IFetchConfig, init?: IFetchInit): Promise<any> {
   let [url, newInit] = fetchParamParser(config, init);
 
   let mutationType: string;
-  switch(method) {
+  switch (method) {
     case 'GET':
     case 'POST':
       mutationType = 'ENTITIES_UPDATE';
