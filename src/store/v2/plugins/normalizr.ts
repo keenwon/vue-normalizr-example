@@ -41,7 +41,13 @@ const entitiesModule: Module<any, any> = {
           return [];
         }
 
-        return denormalize(ids, [_schemas[type]], rootState.entities);
+        let list = denormalize(ids, [_schemas[type]], rootState.entities);
+
+        /**
+         * 过滤空元素
+         * item 是 undefined 或者 object，可以做简单判断
+         */
+        return list.filter((item: any) => !!item);
       }
     }
   },

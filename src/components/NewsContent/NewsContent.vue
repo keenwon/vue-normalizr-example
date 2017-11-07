@@ -8,7 +8,7 @@
       <br />
       <p>comments:</p>
       <ul>
-        <li v-for="comment in commentList" v-if="comment" :key="comment.id">
+        <li v-for="comment in commentList" :key="comment.id">
           <p>id: {{comment.id}} <button @click="onDel(comment.id)">Delete</button></p>
           <p>author: <router-link :to="'/user/' + comment.author.id">{{comment.author.name}}</router-link></p>
           <p>content: {{comment.content}}</p>
