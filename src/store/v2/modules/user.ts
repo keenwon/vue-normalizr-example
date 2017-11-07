@@ -93,7 +93,7 @@ const actions: ActionTree<IUserState, any> = {
       });
   },
 
-  update({ commit, state, rootState }: ActionContext<IUserState, any>, user: IUser): any {
+  update({ commit, state, rootState }: ActionContext<IUserState, any>, user: IUser): Promise<any> {
     let options: IFetchInit = {
       body: JSON.stringify(user)
     };

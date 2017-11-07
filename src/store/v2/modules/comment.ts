@@ -82,9 +82,9 @@ const mutations: MutationTree<ICommentState> = {
  * Action
  */
 const actions: ActionTree<ICommentState, any> = {
-  getList({ state, commit }: ActionContext<ICommentState, any>, newsId: number): any {
+  getList({ state, commit }: ActionContext<ICommentState, any>, newsId: number): Promise<any> {
     if (state.map[newsId]) {
-      return;
+      return Promise.resolve(null);
     }
 
     let options: IFetchInit = {
@@ -105,9 +105,9 @@ const actions: ActionTree<ICommentState, any> = {
   delete(
     { state, commit }: ActionContext<ICommentState, any>,
     { newsId, commentId }: { newsId: number, commentId: number }
-  ): any {
+  ): Promise<any> {
     if (!state.map[newsId] || !state.map[newsId].includes(commentId)) {
-      return;
+      return Promise.resolve(null);
     }
 
     let options: IFetchInit = {

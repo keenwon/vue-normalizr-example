@@ -83,7 +83,7 @@ const mutations: MutationTree<INewsState> = {
  * Action
  */
 const actions: ActionTree<INewsState, any> = {
-  getItem({ state, commit, getters }: ActionContext<INewsState, any>, newsId: number) {
+  getItem({ state, commit, getters }: ActionContext<INewsState, any>, newsId: number): Promise<any> {
     /**
      * 缓存有可能是“列表”接口获取的，也有可能是“详情”接口获取的，所以必须判断缓存的有效性：
      * 
@@ -91,7 +91,7 @@ const actions: ActionTree<INewsState, any> = {
      *    已经缓存的 news 包含 content 字段
      */
     if (state.detailNewsIds.includes(newsId) && getters.item(newsId).content) {
-      return;
+      return Promise.resolve(null);
     }
 
     let options: IFetchInit = {
@@ -106,9 +106,9 @@ const actions: ActionTree<INewsState, any> = {
       });
   },
 
-  getList({ state, commit }: ActionContext<INewsState, any>) {
+  getList({ state, commit }: ActionContext<INewsState, any>): Promise<any> {
     if (Array.isArray(state.listNewsIds) && state.listNewsIds.length > 0) {
-      return;
+      return Promise.resolve(null);
     }
 
     return fetch(newsListRequest)
