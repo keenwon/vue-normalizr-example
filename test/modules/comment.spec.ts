@@ -43,4 +43,51 @@ class CommentTest {
         return checkState && checkEntities;
       });
   }
+
+  @test async 'comment delete'() {
+    let newsId = Date.now();
+    let deleteCommentId = 1000001;
+
+    const comments = [
+      {
+        id: deleteCommentId,
+        content: 'comments 1',
+        author: {
+          id: 1006,
+          name: 'xiao hong',
+          email: 'xiaohong@example.com'
+        }
+      },
+      {
+        id: 1000002,
+        content: 'comments 2',
+        author: {
+          id: 1006,
+          name: 'xiao hong',
+          email: 'xiaohong@example.com'
+        }
+      }
+    ];
+
+    // mock get commemts
+    mockFetch(comments);
+
+    // mock delete comment
+    mockFetch({
+      id: deleteCommentId
+    });
+
+    await store.dispatch('comment/getList', newsId);
+
+    return store
+      .dispatch('comment/delete', {newsId, commentId: deleteCommentId})
+      .then(() => {
+        let commentIds = [1000001, 1000002];
+
+        let checkState = store.state.comment.map[newsId].should.deep.equal([1000002]);
+        let checkEntities = store.getters['comment/list'](newsId).should.deep.equal([comments[1]]);
+
+        return checkState && checkEntities;
+      });
+  }
 }
