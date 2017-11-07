@@ -1,10 +1,14 @@
 import Vue from 'vue';
 import { Module, Store } from 'vuex';
+import omit from 'lodash/omit';
+import merge from 'lodash/merge';
 import { denormalize, Schema } from 'normalizr';
 
 let _schemas: Schema;
 
 const ENTITIES_UPDATE = 'ENTITIES_UPDATE';
+const ENTITIES_DELETE = 'ENTITIES_DELETE';
+const ENTITIES_MERGE = 'ENTITIES_MERGE';
 
 /**
  * entities module
@@ -43,12 +47,33 @@ const entitiesModule: Module<any, any> = {
   },
 
   mutations: {
-    [ENTITIES_UPDATE](state: any, payload: any): void {
-      Object.keys(payload).forEach((key: string) => {
+    /**
+     * 插入 & 替换 entity
+     */
+    [ENTITIES_UPDATE](state: any, entities: any): void {
+      Object.keys(entities).forEach((key: string) => {
         Vue.set(state, key, {
           ...(state[key] || {}),
-          ...payload[key]
+          ...entities[key]
         });
+      });
+    },
+
+    /**
+     * 删除 entity
+     */
+    [ENTITIES_DELETE](state: any, entities: any): void {
+      Object.keys(entities).forEach((key: string) => {
+        Vue.set(state, key, omit(state[key], Object.keys(entities[key])));
+      });
+    },
+
+    /**
+     * merge entity
+     */
+    [ENTITIES_MERGE](state: any, entities: any): void {
+      Object.keys(entities).forEach((key: string) => {
+        Vue.set(state, key, merge({}, state[key] || {}, entities[key]));
       });
     }
   }
