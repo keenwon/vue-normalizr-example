@@ -1,6 +1,5 @@
 import { suite, test, slow, timeout } from 'mocha-typescript';
 import { mockFetch } from '../mock/fetch';
-import { userItemRequest, userUpdateRequest, IFetchInit } from '@/store/v2/fetch'
 
 import store from '@/store';
 import 'chai';
@@ -14,13 +13,7 @@ class UserTest {
       email: 'zhangsan@example.com'
     };
 
-    let options: IFetchInit = {
-      params: {
-        userId: user.id
-      }
-    };
-
-    mockFetch(userItemRequest, options, user);
+    mockFetch(user);
 
     return store
       .dispatch('user/getItem', user.id)
@@ -39,11 +32,7 @@ class UserTest {
       email: 'lisi@example.com'
     };
 
-    let options: IFetchInit = {
-      body: JSON.stringify(user)
-    };
-
-    mockFetch(userUpdateRequest, options, user);
+    mockFetch(user);
 
     return store
       .dispatch('user/update', user)

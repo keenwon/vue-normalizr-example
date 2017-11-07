@@ -1,27 +1,34 @@
-import { IFetchConfig, IFetchInit, fetchParamParser } from '@/store/v2/fetch'
-
-const _map = {};
-
-function getCacheKey(url: string, init?: IFetchInit) {
-  return init
-    ? url + JSON.stringify(init)
-    : url;
-}
+/**
+ * cache native fetch
+ */
+const fetch = window.fetch;
 
 /**
- * mock window.fetch
+ * response list
  */
-window.fetch = (url: string, init?: IFetchInit) => {
-  let key = getCacheKey(url, init);
-  let data = _map[key] || {};
-  let response = new Response(JSON.stringify(data));
+const responseList: Array<Response> = [];
+
+window.fetch = (): Promise<any> => {
+  let response = responseList.shift();
+
+  if (!response) {
+    return Promise.reject('mush call mockFetch() first.');
+  }
 
   return Promise.resolve(response);
 };
 
-export function mockFetch(config: IFetchConfig, init: IFetchInit = {}, responseData: any = {}): void {
-  let [ url, newInit] = fetchParamParser(config, init);
-  let key = getCacheKey(url, newInit);
-
-  _map[key] = responseData;
+/**
+ * mock window.fetch
+ */
+export function mockFetch(mockData: any): void {
+  let response = new Response(JSON.stringify(mockData));
+  responseList.push(response);
 };
+
+/**
+ * reset window.fetch
+ */
+function resetFetch(): void {
+  window.fetch = fetch;
+}

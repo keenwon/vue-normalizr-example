@@ -1,6 +1,5 @@
 import { suite, test, slow, timeout } from 'mocha-typescript';
 import { mockFetch } from '../mock/fetch';
-import { newsItemRequest, newsListRequest, IFetchInit } from '@/store/v2/fetch';
 
 import store from '@/store';
 import 'chai';
@@ -31,7 +30,7 @@ class NewsTest {
       }
     ];
 
-    mockFetch(newsListRequest, {}, newsList);
+    mockFetch(newsList);
 
     return store
       .dispatch('news/getList')
@@ -59,13 +58,7 @@ class NewsTest {
       }
     };
 
-    let options: IFetchInit = {
-      params: {
-        newsId
-      }
-    };
-
-    mockFetch(newsItemRequest, options, news);
+    mockFetch(news);
 
     return store
       .dispatch('news/getItem', newsId)

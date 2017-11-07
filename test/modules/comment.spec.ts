@@ -1,6 +1,5 @@
 import { suite, test, slow, timeout } from 'mocha-typescript';
 import { mockFetch } from '../mock/fetch';
-import { commentListRequest, IFetchInit } from '@/store/v2/fetch';
 
 import store from '@/store';
 import 'chai';
@@ -31,13 +30,7 @@ class CommentTest {
       }
     ];
 
-    let options: IFetchInit = {
-      params: {
-        newsId
-      }
-    };
-
-    mockFetch(commentListRequest, options, comments);
+    mockFetch(comments);
 
     return store
       .dispatch('comment/getList', newsId)
