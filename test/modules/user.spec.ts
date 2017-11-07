@@ -40,7 +40,6 @@ class UserTest {
     };
 
     let options: IFetchInit = {
-      method: 'POST',
       body: JSON.stringify(user)
     };
 
