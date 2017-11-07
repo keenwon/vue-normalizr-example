@@ -44,7 +44,7 @@ const mutations: MutationTree<IUserState> = {
    * @param state state
    * @param payload user
    */
-  [USER_FETCH](state: IUserState, payload: any): void {
+  [USER_FETCH](state: IUserState, payload: number): void {
     if (state.ids.includes(payload)) {
       return;
     }
@@ -52,7 +52,7 @@ const mutations: MutationTree<IUserState> = {
     state.ids.push(payload);
   },
 
-  [USER_UPDATE](state: IUserState, payload: any): void {
+  [USER_UPDATE](state: IUserState, payload: number): void {
     if (state.ids.includes(payload)) {
       return;
     }

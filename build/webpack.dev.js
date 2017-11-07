@@ -35,7 +35,7 @@ function initDevApi(app) {
 
   // 根据 newsId 获取评论列表
   app.get('/api/comments/:newsId', function (req, res) {
-    res.json(mockData.comments[req.params.newsId] || {});
+    res.json(mockData.comments[req.params.newsId] || []);
   });
 
   // 删除评论
@@ -43,7 +43,9 @@ function initDevApi(app) {
     let newsId = req.params.newsId;
     let commentId = req.params.commentId;
 
-    delete mockData.comments[newsId][commentId];
+    mockData.comments[newsId] = mockData.comments[newsId].filter(comment => {
+      return comment.id !== +commentId;
+    });
 
     /**
      * 返回局部（ID）信息，模拟后端的 delete 操作

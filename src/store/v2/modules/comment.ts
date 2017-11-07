@@ -52,7 +52,10 @@ const mutations: MutationTree<ICommentState> = {
    * @param state state
    * @param payload comment list
    */
-  [COMMENTS_FETCH](state: ICommentState, payload: any): void {
+  [COMMENTS_FETCH](
+    state: ICommentState,
+    payload: { newsId: number, list: Array<any> }
+  ): void {
     state.map = {
       ...state.map,
       [payload.newsId]: payload.list
@@ -64,13 +67,14 @@ const mutations: MutationTree<ICommentState> = {
    * @param state state
    * @param payload {newsId, commentId}
    */
-  [COMMENTS_DELETE](state: ICommentState, payload: any): void {
-    state.map = {
-      ...state.map,
-      [payload.newsId]: state.map[payload.newsId].filter(id => {
+  [COMMENTS_DELETE](
+    state: ICommentState,
+    payload: { newsId: number, commentId: number }
+  ): void {
+    state.map[payload.newsId] = state.map[payload.newsId]
+      .filter(id => {
         return id !== payload.commentId;
-      })
-    };
+      });
   }
 }
 
