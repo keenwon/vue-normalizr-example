@@ -11,3 +11,12 @@ export const commentListRequest: IFetchConfig = {
     commentSchema
   ]
 };
+
+/**
+ * 删除评论
+ */
+export const commentDeleteRequest: IFetchConfig = {
+  method: 'DELETE',
+  url: '/api/comments/:newsId/:commentId',
+  schema: commentSchema
+};

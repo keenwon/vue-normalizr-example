@@ -1,7 +1,7 @@
 <template>
   <div>
     <router-link to="/"><< back</router-link>
-    <NewsContent :news="news" :commentList="commentList" />
+    <NewsContent :news="news" :commentList="commentList" :del="commentDel"/>
   </div>
 </template>
 
@@ -33,6 +33,13 @@
 
       this.$store.dispatch('news/getItem', this.newsId);
       this.$store.dispatch('comment/getList', this.newsId);
+    }
+
+    commentDel(commentId: number) {
+      this.$store.dispatch('comment/delete', {
+        newsId: this.newsId,
+        commentId
+      });
     }
   }
 </script>

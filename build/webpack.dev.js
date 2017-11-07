@@ -38,6 +38,22 @@ function initDevApi(app) {
     res.json(mockData.comments[req.params.newsId] || {});
   });
 
+  // 删除评论
+  app.delete('/api/comments/:newsId/:commentId', function (req, res) {
+    let newsId = req.params.newsId;
+    let commentId = req.params.commentId;
+
+    delete mockData.comments[newsId][commentId];
+
+    /**
+     * 返回局部（ID）信息，模拟后端的 delete 操作
+     * 此时前端数据层 normalize 之后，需要删除原先的数据
+     */
+    res.json({
+      id: commentId
+    });
+  });
+
   // 获取用户详情
   app.get('/api/user/:userId', function (req, res) {
     let user = mockData.users.find(item => {

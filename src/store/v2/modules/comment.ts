@@ -1,5 +1,6 @@
+import Vue from 'vue';
 import { MutationTree, ActionTree, ActionContext, Module, GetterTree } from 'vuex';
-import fetch, { IFetchInit, commentListRequest } from '../fetch';
+import fetch, { IFetchInit, commentListRequest, commentDeleteRequest } from '../fetch';
 
 /**
  * State
@@ -43,6 +44,7 @@ const getters: GetterTree<ICommentState, any> = {
  * Mutations
  */
 const COMMENTS_FETCH = 'COMMENTS_FETCH';
+const COMMENTS_DELETE = 'COMMENTS_DELETE';
 const mutations: MutationTree<ICommentState> = {
 
   /**
@@ -55,6 +57,20 @@ const mutations: MutationTree<ICommentState> = {
       ...state.map,
       [payload.newsId]: payload.list
     }
+  },
+
+  /**
+   * delete comment
+   * @param state state
+   * @param payload {newsId, commentId}
+   */
+  [COMMENTS_DELETE](state: ICommentState, payload: any): void {
+    state.map = {
+      ...state.map,
+      [payload.newsId]: state.map[payload.newsId].filter(id => {
+        return id !== payload.commentId;
+      })
+    };
   }
 }
 
@@ -78,6 +94,30 @@ const actions: ActionTree<ICommentState, any> = {
         commit(COMMENTS_FETCH, {
           newsId,
           list: data
+        });
+      });
+  },
+
+  delete(
+    { state, commit }: ActionContext<ICommentState, any>,
+    { newsId, commentId }: { newsId: number, commentId: number }
+  ): any {
+    if (!state.map[newsId] || !state.map[newsId].includes(commentId)) {
+      return;
+    }
+
+    let options: IFetchInit = {
+      params: {
+        newsId,
+        commentId
+      }
+    };
+
+    return fetch(commentDeleteRequest, options)
+      .then(data => {
+        commit(COMMENTS_DELETE, {
+          newsId,
+          commentId
         });
       });
   }
