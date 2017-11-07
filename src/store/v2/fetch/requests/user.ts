@@ -14,7 +14,7 @@ export const userItemRequest: IFetchConfig = {
  * 更新用户信息
  */
 export const userUpdateRequest: IFetchConfig = {
-  method: 'POST',
+  method: 'PATCH',
   url: '/api/user',
   schema: userSchema
 }

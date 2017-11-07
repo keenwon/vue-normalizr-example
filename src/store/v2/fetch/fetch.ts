@@ -15,7 +15,7 @@ let _store: Store<any>;
  * fetch install
  * @param store vuex store
  */
-export function install(store: Store<any>) {
+export function install(store: Store<any>): void {
   if (_store) {
     return;
   }
