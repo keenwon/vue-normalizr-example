@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import { Module, Store } from 'vuex';
+import { Module, Store } from '../vuex';
 import omit from 'lodash/omit';
 import merge from 'lodash/merge';
 import { denormalize, Schema } from 'normalizr';

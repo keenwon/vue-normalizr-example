@@ -1,7 +1,6 @@
 import { Module, ModuleTree } from 'vuex';
 
 export interface IModule<S, R> extends Module<S, R> {
-  name: string;
   mixin?: Array<Module<S, R>>;
 };
 

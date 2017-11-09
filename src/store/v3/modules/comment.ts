@@ -1,5 +1,4 @@
-import Vue from 'vue';
-import { MutationTree, ActionTree, ActionContext, Module, GetterTree } from 'vuex';
+import { MutationTree, ActionTree, ActionContext, Module, GetterTree } from '../vuex';
 import fetch, { IFetchInit, commentListRequest, commentDeleteRequest } from '../fetch';
 
 /**

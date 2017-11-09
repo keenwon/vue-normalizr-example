@@ -1,4 +1,4 @@
-import { MutationTree, ActionTree, ActionContext, Module, GetterTree } from 'vuex';
+import { MutationTree, ActionTree, ActionContext, Module, GetterTree } from '../vuex';
 import { IUser } from '@/types';
 import fetch, { IFetchInit, userItemRequest, userUpdateRequest } from '../fetch';
 
