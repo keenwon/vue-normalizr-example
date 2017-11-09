@@ -9,7 +9,7 @@ import { Schema } from 'normalizr';
  *   PUT: 更新，不管更新什么，都要发送全部字段，后端也返回全部字段，entities 执行 merge
  *   DELETE: 删除，通常只发送 ID，后端删除完成后也只返回 ID，entities 执行 delete
  */
-export interface IFetchConfig {
+export interface IFetchRequest {
   url: string;
   method: 'GET' | 'POST' | 'PATCH' | 'DELETE' | 'PUT';
   schema?: Schema

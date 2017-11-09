@@ -1,10 +1,10 @@
-import { IFetchConfig } from '../interfaces/IFetchConfig';
+import { IFetchRequest } from '../interfaces/IFetchRequest';
 import newsSchema from '../../schema/news';
 
 /**
  * 获取新闻详情
  */
-export const newsItemRequest: IFetchConfig = {
+export const newsItemRequest: IFetchRequest = {
   method: 'GET',
   url: '/api/news/:newsId',
   schema: newsSchema
@@ -13,7 +13,7 @@ export const newsItemRequest: IFetchConfig = {
 /**
  * 获取新闻列表
  */
-export const newsListRequest: IFetchConfig = {
+export const newsListRequest: IFetchRequest = {
   method: 'GET',
   url: '/api/news',
   schema: [

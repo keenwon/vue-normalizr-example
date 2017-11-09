@@ -1,4 +1,4 @@
-export * from './interfaces/IFetchConfig';
+export * from './interfaces/IFetchRequest';
 export * from './interfaces/IFetchInit';
 
 export * from './requests/comment';

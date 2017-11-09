@@ -1,10 +1,10 @@
-import { IFetchConfig } from '../interfaces/IFetchConfig';
+import { IFetchRequest } from '../interfaces/IFetchRequest';
 import commentSchema from '../../schema/comment';
 
 /**
  * 获取评论列表
  */
-export const commentListRequest: IFetchConfig = {
+export const commentListRequest: IFetchRequest = {
   method: 'GET',
   url: '/api/comments/:newsId',
   schema: [
@@ -15,7 +15,7 @@ export const commentListRequest: IFetchConfig = {
 /**
  * 删除评论
  */
-export const commentDeleteRequest: IFetchConfig = {
+export const commentDeleteRequest: IFetchRequest = {
   method: 'DELETE',
   url: '/api/comments/:newsId/:commentId',
   schema: commentSchema

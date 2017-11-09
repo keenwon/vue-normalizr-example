@@ -1,10 +1,10 @@
-import { IFetchConfig } from '../interfaces/IFetchConfig';
+import { IFetchRequest } from '../interfaces/IFetchRequest';
 import userSchema from '../../schema/user';
 
 /**
  * 获取用户详情
  */
-export const userItemRequest: IFetchConfig = {
+export const userItemRequest: IFetchRequest = {
   method: 'GET',
   url: '/api/user/:userId',
   schema: userSchema
@@ -13,7 +13,7 @@ export const userItemRequest: IFetchConfig = {
 /**
  * 更新用户信息
  */
-export const userUpdateRequest: IFetchConfig = {
+export const userUpdateRequest: IFetchRequest = {
   method: 'PATCH',
   url: '/api/user',
   schema: userSchema

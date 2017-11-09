@@ -1,7 +1,7 @@
 import { Store } from 'vuex';
 import { normalize, Schema } from 'normalizr';
 import merge from 'lodash/merge';
-import { IFetchConfig } from './interfaces/IFetchConfig';
+import { IFetchRequest } from './interfaces/IFetchRequest';
 import { IFetchInit } from './interfaces/IFetchInit';
 import { compile } from 'path-to-regexp';
 import { stringify } from 'query-string';
@@ -35,7 +35,7 @@ const defaultInit = {
 /**
  * 处理 fetch 参数
  */
-export function fetchParamParser(config: IFetchConfig, init?: IFetchInit): [string, IFetchConfig] {
+export function fetchParamParser(config: IFetchRequest, init?: IFetchInit): [string, IFetchRequest] {
   let { url, method, schema } = config;
 
   // 解析 url
@@ -55,10 +55,10 @@ export function fetchParamParser(config: IFetchConfig, init?: IFetchInit): [stri
   // merge init
   init = merge({ method }, defaultInit, init);
 
-  return [url, <IFetchConfig>init];
+  return [url, <IFetchRequest>init];
 }
 
-export function fetch(config: IFetchConfig, init?: IFetchInit): Promise<any> {
+export function fetch(config: IFetchRequest, init?: IFetchInit): Promise<any> {
   let { schema, method } = config;
 
   // parser param
