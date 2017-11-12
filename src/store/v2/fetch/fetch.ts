@@ -70,9 +70,9 @@ export function fetch(config: IFetchRequest, init?: IFetchInit): Promise<any> {
     case 'POST':
       mutationType = 'ENTITIES_UPDATE';
       break;
-    case 'DELETE':
-      mutationType = 'ENTITIES_DELETE';
-      break;
+    // case 'DELETE':
+    //   mutationType = 'ENTITIES_DELETE';
+    //   break;
     case 'PUT':
     case 'PATCH':
     default:
@@ -91,7 +91,7 @@ export function fetch(config: IFetchRequest, init?: IFetchInit): Promise<any> {
       if (schema) {
         let { entities, result } = normalize(responseData, schema);
 
-        _store.commit(mutationType, entities);
+        mutationType && _store.commit(mutationType, entities);
         data = result;
       } else {
         data = responseData;
