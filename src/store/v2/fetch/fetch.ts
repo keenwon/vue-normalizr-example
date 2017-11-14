@@ -70,9 +70,9 @@ export function fetch(config: IFetchRequest, init?: IFetchInit): Promise<any> {
     case 'POST':
       mutationType = 'ENTITIES_UPDATE';
       break;
-    // case 'DELETE':
-    //   mutationType = 'ENTITIES_DELETE';
-    //   break;
+    case 'DELETE':
+      // mutationType = 'ENTITIES_DELETE';
+      break;
     case 'PUT':
     case 'PATCH':
     default:
