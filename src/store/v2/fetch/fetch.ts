@@ -35,7 +35,7 @@ const defaultInit = {
 /**
  * 处理 fetch 参数
  */
-export function fetchParamParser(config: IFetchRequest, init?: IFetchInit): [string, IFetchRequest] {
+export function fetchParamParser(config: IFetchRequest, init?: IFetchInit): [string, IFetchInit] {
   let { url, method, schema } = config;
 
   // 解析 url
@@ -55,7 +55,7 @@ export function fetchParamParser(config: IFetchRequest, init?: IFetchInit): [str
   // merge init
   init = merge({ method }, defaultInit, init);
 
-  return [url, <IFetchRequest>init];
+  return [url, <IFetchInit>init];
 }
 
 export function fetch(config: IFetchRequest, init?: IFetchInit): Promise<any> {
